@@ -1,0 +1,28 @@
+<!-- Open subitles search dialog box -->
+<div id='subtitles-dialog-box' style="display:none">
+  <br>
+  <div id="search-opensub-header">
+    <div id="subtitles-dialog-error"></div>
+    <div id="search-opensubtitles-heading" style="width:140px; float:right">Search OpenSubtitles</div>
+  </div>
+  <br>
+  <div>
+    Title:
+    <input type="text" id="subtitles-tag" style="width:400px"></input>
+    <br>
+    <br> Subtitle Language:
+    <select id="sub-language">
+      <!-- Removing option None as otherwise all languages are loaded -->
+      <!-- <option>None</option> -->
+      <option value="eng">English</option>
+      <!-- <option value="chi">Chinese</option> -->
+      <option value="spa">Spanish</option>
+      <!-- <option value="hi">Hindi</option> -->
+    </select>
+    <br>
+    <br> Chose Subtitle file:
+    <select id="sub-files">
+      <option value="none">None</option>
+    </select>
+  </div>
+</div>

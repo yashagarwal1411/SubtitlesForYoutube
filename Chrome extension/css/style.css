@@ -1,0 +1,151 @@
+/* Container */
+.bubblesContainer{
+  margin:0 auto;
+  overflow:hidden;
+  position:relative;
+  height: inherit;
+  width: inherit;
+}
+
+/* Default Bubbles */
+.bubblesContainer .bubl{
+  position:absolute;
+  z-index:999999;
+}
+.bubblesContainer a.bubl.default{
+  display: block;
+  opacity: 0;
+  background:#eeeeee;
+}
+.bubblesContainer div.bubl.default{
+  background: transparent;
+}
+.bubblesContainer div.bubl{
+  background: transparent;
+  border-radius: 6px;
+  color: #000000;
+  display: none;
+  left: 0;
+  min-height: 10px;
+  min-
+
+  width: 20px;
+  opacity: 0;
+  padding: 11px 7px 13px 9px;
+  position: absolute;
+  top: -1000px;
+  z-index: 999999999;
+
+
+  -webkit-transition: opacity 0.5s ease-in;
+  -moz-transition: opacity 0.5s ease-in;
+  -o-transition: opacity 0.5s ease-in;
+  -ms-transition: opacity 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
+}
+
+/* Close Button */
+.bubblesContainer .bubl .close{
+  position: absolute;
+  top: 0;
+  right: 4px;
+  font-family: tahoma;
+  cursor: pointer;
+  font-size: 13px;
+}
+.bubblesContainer .bubl .close:hover{
+  color: #880000;
+}
+
+/* various bubbles */
+.bubblesContainer div.bubbles2,
+.bubblesContainer div.bubbles3{
+  border: 1px solid #f2f2f2;
+  box-shadow: 3px 3px 5px #444444;
+  background: #eeeeee;
+  color: #000000;
+  font-weight: bold;
+  opacity: 0.9;
+}
+.bubblesContainer div.bubbles3{ opacity: 0; }
+
+.bubblesContainer div.bubblesBlack{
+  border: 2px solid #f2f2f2;
+  box-shadow: 3px 3px 6px #333333;
+  background: #111111;
+  color: #e3e3e3;
+  opacity: 0.9;
+
+  text-shadow: 1px 1px 5px #E0E0E0;
+  font-weight: normal;
+}
+
+.bubblesContainer div.bubblesPink{
+  border: 2px dotted #eeeeee;
+  box-shadow: 3px 3px 6px #333333;
+  background: #F5BCD0;
+  color: #120000;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.bubblesContainer div.topTransition{
+  -moz-transition: top 0.8s ease-in;
+  -webkit-transition: top 0.8s ease-in;
+  -o-transition: top 0.8s ease-in;
+  -ms-transition: top 0.8s ease-in;
+}
+
+.bubblesContainer div.fadeOut{
+  -moz-transition: opacity 0.36s ease-in;
+  -webkit-transition: opacity 0.36s ease-in;
+  -o-transition: opacity 0.36s ease-in;
+  -ms-transition: opacity 0.36s ease-in;
+  opacity: 0;
+}
+
+.bubblesContainer div.fadeIn{
+  -moz-transition: opacity 0.36s ease-in;
+  -webkit-transition: opacity 0.36s ease-in;
+  -o-transition: opacity 0.36s ease-in;
+  -ms-transition: opacity 0.36s ease-in;
+  opacity: 0.8;
+}
+
+#sub-info {
+  min-width: 20%;
+  width: 80%;
+  font-family: Helvetica, Arial, sans-serif;
+  text-shadow: black 1px 0px 0px;
+  z-index: 999999;
+  background-color: rgba(0, 0, 0, 0.113725);
+  color: #FFFFFF;
+  font-weight: bold;
+  opacity: 1;
+  font-size: 22px;
+}
+
+#sub-message {
+  font-family: arial, sans-serif;
+  font-size: larger;
+  font-style: oblique;
+}
+
+
+/* Default Subtitles */
+.subtitles{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.116094);
+  bottom: 33px;
+  font-size: 20px;
+  color: #FFFFFF;
+  font-weight: bold;
+  margin-left: 10%;
+  text-align: center;
+  min-width: 20%;
+  width: 80%;
+  font-family: Helvetica, Arial, sans-serif;
+  text-shadow: black 1px 0px 0px;
+  z-index: 999999;
+  opacity: 1;
+}

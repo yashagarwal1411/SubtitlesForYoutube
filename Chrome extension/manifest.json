@@ -1,0 +1,23 @@
+{
+  "name": "Subtitles For YouTube",
+  "manifest_version": 2,
+  "version": "1.11.27",
+  "icons": {
+    "128": "images/icon.png"
+  },
+  "description": "Use this extension to add drag and drop subtitles to any youtube video",
+  "permissions": [
+    "*://*/*",
+    "storage"
+  ],
+  "web_accessible_resources": ["open-subtitles.html", "images/opensubtitles_128.png"],
+  "content_scripts": [{
+    "matches": ["*://www.youtube.com/*"],
+    "js": ["js/libs/jquery-1.11.1.js", "js/libs/jquery-ui-1.10.3.custom.min.js", "js/libs/jquery.fileupload.js", "js/libs/jquery.iframe-transport.js", "js/bubbles-modified.js", "js/open-subtitles.js", "js/myscript.js"],
+    "css": ["css/style.css"]
+  }],
+  "background": {
+    "scripts": ["js/libs/jquery-1.11.1.js", "js/libs/jquery.xmlrpc.js", "js/background.js"],
+    "persistent": false
+  }
+}
