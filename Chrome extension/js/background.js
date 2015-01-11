@@ -66,6 +66,7 @@ chrome.runtime.onMessage.addListener(
         if (request.action == "loadToken") {
             OpenSubtitles.loadToken(sendResponse);
         } else if (request.action == "loadNewSubs") {
+            _gaq.push(['_trackEvent', "OpenSubtitlesSearch", request.tag]);
             OpenSubtitles.loadNewSubs(request.tag, request.subLanguage, sendResponse);
         }
 

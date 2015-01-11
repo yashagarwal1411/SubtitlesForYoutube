@@ -13,6 +13,15 @@ var areSubtitlesShowing = true;
 var subtitlesSync = 0.0;
 /* Timer for display sub-info span */
 var subInfoDisplayTimer;
+/* Font size of subtitles in px */
+var subtitlesSize = "20";
+/* Help message for subtitles */
+var shortcutsMessage =  "Subtitles Shortcuts\\n\\n" +
+                        "V : Show/Hide \\n" +
+                        "G : -50ms delay \\n" +
+                        "H : +50ms delay \\n" +
+                        "Q : decrease font size \\n" +
+                        "W : increase font size";
 
 function fadeOutSubtitlesInfo() {
   if (subInfoDisplayTimer) {
@@ -55,10 +64,13 @@ function loadSubtitles(subtitlesURL) {
   $("#sub-message").html("Subtitle upload completed. Enjoy!!! :)");
   $("#sub-message").fadeOut(3000);
   setTimeout(function() {
-    $("#sub-message").html("Drag and drop SRT or Zipped srt file here to add different subtitles to video.");
-    $("#sub-info").html("Use keyboard shorcuts V (to show/hide), G (-50ms delay), H (+50ms delay)").delay(3000).fadeOut(3000);
+    $("#sub-message").html("Drag and drop SRT or Zipped srt file here to " +
+      "add different subtitles to video or <a onclick=\"alert('" + shortcutsMessage + "')\">View Shortcuts</a>");
     $("#sub-message").fadeIn(3000);
   }, 3000);
+
+    /* Set value of font size from local storage */
+    getFontSizeFromLocalStorage();
 }
 
 function registerKeyboardListeners() {
@@ -90,6 +102,20 @@ function registerKeyboardListeners() {
       subBubblesVideo.subsSync(subtitlesSync);
       console.log("Delaying subs by +0.050ms");
       $("#sub-info").html("Subtitle delay: " + Math.round(subtitlesSync * 1000) + "ms").fadeIn();
+      fadeOutSubtitlesInfo();
+    }
+    if (e.keyCode == 'q'.charCodeAt() || e.keyCode == 'Q'.charCodeAt()) {
+      subtitlesSize -= 1;
+      $(".subtitles").css("font-size", subtitlesSize+"px");
+      storeFontSizeInLocalStorage(subtitlesSize);
+      $("#sub-info").html("Sub size: " + subtitlesSize).fadeIn();
+      fadeOutSubtitlesInfo();
+    }
+    if (e.keyCode == 'w'.charCodeAt() || e.keyCode == 'W'.charCodeAt()) {
+      subtitlesSize += 1;
+      $(".subtitles").css("font-size", subtitlesSize+"px");
+      storeFontSizeInLocalStorage(subtitlesSize);
+      $("#sub-info").html("Sub size: " + subtitlesSize).fadeIn();
       fadeOutSubtitlesInfo();
     }
   }, false);
@@ -164,3 +190,21 @@ setInterval(function() {
     }
   }
 }, 3000);
+
+function storeFontSizeInLocalStorage(fontSize) {
+  chrome.storage.local.set({
+      "subfontsize": fontSize
+  }, function() {
+    console.log("Stored font size: " + fontSize + " in chrome storage");
+  });
+}
+
+function getFontSizeFromLocalStorage() {
+  chrome.storage.local.get(null, function(result) {
+    console.log("Found font size in local storage:" + result["subfontsize"]);
+    if (result["subfontsize"]) {
+      subtitlesSize = result["subfontsize"];
+      $(".subtitles").css("font-size", subtitlesSize+"px");
+    }
+  });
+}
