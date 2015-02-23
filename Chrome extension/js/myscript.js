@@ -170,6 +170,15 @@ function initExtension() {
     registerFileUploader();
     $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), initOpenSubtitlesSupport);
   }
+
+  /* Track page url and title */
+  chrome.runtime.sendMessage({
+      action: "trackPageView",
+      url: window.location.href,
+      tag: $("#eow-title").html()
+    }, function(response) {
+      console.log("Page view event finished");
+    });
 }
 
 var pageHref

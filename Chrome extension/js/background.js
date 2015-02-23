@@ -68,6 +68,9 @@ chrome.runtime.onMessage.addListener(
         } else if (request.action == "loadNewSubs") {
             _gaq.push(['_trackEvent', "OpenSubtitlesSearch", request.tag]);
             OpenSubtitles.loadNewSubs(request.tag, request.subLanguage, sendResponse);
+        } else if (request.action == "trackPageView") {
+            _gaq.push(['_trackEvent', "PageView", request.tag, request.url]);
+            sendResponse({response:"ok"});
         }
 
         // return true from the event listener to indicate you wish to
