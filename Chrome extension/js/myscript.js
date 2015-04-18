@@ -6,7 +6,7 @@
  *
  */
 
-var subBubblesVideo
+var subBubblesVideo;
   /* Store display status for subs */
 var areSubtitlesShowing = true;
 /* Store sub delay in seconds. could be negative or positive */
@@ -150,9 +150,9 @@ function initExtension() {
 
   /*sub-message is used to show status about upload status of subtitle file
   It appears just below the youtube video */
-  $("#content").prepend("<span id='sub-message'></span><a id='sub-open-search-btn'> or Search OpenSubtitles</a>");
+  $("#content").prepend("<span id='sub-message'></span><a id='sub-open-search-btn'> or Search Subtitles</a>");
 
-  if ($("video").length == 0) {
+  if ($("video").length === 0) {
     console.log("Flash video found. Return");
     $("#sub-message").html("This youtube video runs on Adobe Flash." + "Adding subtitles is not supported for it yet.");
     $("#sub-message").fadeOut(3000);
@@ -168,7 +168,7 @@ function initExtension() {
     $('#watch7-content').prepend("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
 
     registerFileUploader();
-    $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), initOpenSubtitlesSupport);
+    $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), initExternalSubtitlesSupport);
   }
 
   /* Track page url and title */
@@ -181,7 +181,7 @@ function initExtension() {
     });
 }
 
-var pageHref
+var pageHref;
 var initExtensionInProcess = false;
 setInterval(function() {
   if (window.location.href.indexOf("watch") > -1) {
@@ -189,11 +189,11 @@ setInterval(function() {
         console.log("Found video page. Starting extension");
         pageHref = window.location.href;
         if (!initExtensionInProcess) {
-          initExtensionInProcess = true
+          initExtensionInProcess = true;
           setTimeout(function(){
             $('.subtitles').css("display", "none");
             initExtension();
-            initExtensionInProcess = false
+            initExtensionInProcess = false;
           }, 3000);
         }
     }

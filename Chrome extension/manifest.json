@@ -11,16 +11,17 @@
     "storage"
   ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "web_accessible_resources": ["open-subtitles.html", "images/opensubtitles_128.png"],
+  "web_accessible_resources": ["open-subtitles.html", "images/opensubtitles_128.png", "images/amara.png"],
   "content_scripts": [{
     "matches": ["*://www.youtube.com/*"],
     "js": ["js/libs/jquery-1.11.1.js", "js/libs/jquery-ui-1.10.3.custom.min.js",
     "js/libs/jquery.fileupload.js", "js/libs/jquery.iframe-transport.js",
-    "js/bubbles-modified.js", "js/open-subtitles.js", "js/myscript.js"],
+    "js/bubbles-modified.js", "js/ExternalSubtitles.js", "js/myscript.js"],
     "css": ["css/style.css"]
   }],
   "background": {
-    "scripts": ["js/libs/jquery-1.11.1.js", "js/libs/jquery.xmlrpc.js", "js/ga.js", "js/background.js"],
+    "scripts": ["js/libs/jquery-1.11.1.js", "js/libs/jquery.xmlrpc.js",
+     "js/ga.js", "js/OpenSubtitles.js", "js/Amara.js", "js/background.js"],
     "persistent": false
   }
 }

@@ -6,76 +6,59 @@
  *
  */
 
-var token
-OpenSubtitles = {
-    loadToken : function(sendResponse) {
-        //Return directly as token might be required on multiple pages
-        //TODO: Check if token expired then relogin
-        if (token) {
-            console.log("Existing token found. No need to re-login");
-            console.log("Returning token: " + token);
-            sendResponse({token: token});
-            return
-        }
-        $.xmlrpc({
-            url: 'http://api.opensubtitles.org/xml-rpc',
-            methodName: 'LogIn',
-            params: ["", "", "", "subtitlesforyoutube"],
-            success: function(response, status, jqXHR) {
-                console.log("Success for open subtitles LogIn. Token is:");
-                console.log(response[0]["token"]);
-                token = response[0]["token"];
-                sendResponse({token: token});
-            },
-            error: function(jqXHR, status, error) {
-                console.log("Error in login call for open subtitles");
-                console.log(error);
-                sendResponse({token: null});
-            }
-        });
-    },
-    loadNewSubs : function(tag, subLanguage, sendResponse) {
-        console.log("Inside load new subs");
-        console.log("Token found " + token);
-        $.xmlrpc({
-            url: 'http://api.opensubtitles.org/xml-rpc',
-            methodName: 'SearchSubtitles',
-            params: [ token, [{'query':tag, 'sublanguageid':subLanguage}]],
-            success: function(response, status, jqXHR) {
-                console.log("Success for open subtitles SearchSubtitles");
-                console.log(response[0]["data"]);
-                if (response[0]["data"] == false) {
-                    sendResponse({response:false});
-                } else {
-                    sendResponse({response:response[0]["data"]});
-                }
-            },
-            error: function(jqXHR, status, error) {
-                console.log("Error in SearchSubtitles call for open subtitles");
-                console.log(error);
-                sendResponse({response:null});
-            }
-        });
-
-    }
-}
+var OpenSubtitles = OpenSubtitlesFactory();
+var Amara = AmaraFactory();
 
 chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
+  function(request, sender, sendResponse) {
 
-        if (request.action == "loadToken") {
-            OpenSubtitles.loadToken(sendResponse);
-        } else if (request.action == "loadNewSubs") {
-            _gaq.push(['_trackEvent', "OpenSubtitlesSearch", request.tag]);
-            OpenSubtitles.loadNewSubs(request.tag, request.subLanguage, sendResponse);
-        } else if (request.action == "trackPageView") {
-            _gaq.push(['_trackEvent', "PageView", request.tag, request.url]);
-            sendResponse({response:"ok"});
+    if (request.action == "loadToken") {
+      OpenSubtitles.loadToken(sendResponse);
+    } else if (request.action == "loadNewSubs") {
+      _gaq.push(['_trackEvent', "SubtitlesSearch", request.tag]);
+      var response = {"response" : {"status" : {}}};
+      var amaraSubLanguage = "en";
+      if (request.subLanguage === "eng") {
+        amaraSubLanguage = "en";
+      } else if (request.subLanguage === "spa") {
+        amaraSubLanguage = "es";
+      }
+      Amara.searchSubtitles(request.youtubeUrl, request.tag, amaraSubLanguage, function(data, status) {
+        if (status === "OK") {
+          console.log("Found status OK for Amara with data:");
+          console.log(data);
+          response.response.status["Amara"] = "OK";
+          response.response["subtitles"] = data.subtitles;
+          sendResponse(response);
+        } else {
+          console.log("Found status FAILED for Amara with data:");
+          console.log(data);
+          response.response.status["Amara"] = "FAILED";
+          OpenSubtitles.loadNewSubs(request.tag, request.subLanguage, 3, function(data, status) {
+            if (status === "OK") {
+              console.log("Found status OK for OpenSubtitles with data:");
+              console.log(data);
+              response.response.status["OpenSubtitles"] = "OK";
+              response.response["subtitles"] = data.subtitles;
+            } else {
+              console.log("Found status FAILED for OpenSubtitles with data:");
+              console.log(data);
+              response.response.status["OpenSubtitles"] = "FAILED";
+            }
+            sendResponse(response);
+          });
         }
-
-        // return true from the event listener to indicate you wish to
-        // send a response asynchronously (this will keep the message
-        // channel open to the other end until sendResponse is called).
-        return true;
+      });
+    } else if (request.action == "trackPageView") {
+      _gaq.push(['_trackEvent', "PageView", request.tag, request.url]);
+      sendResponse({
+        response: "ok"
+      });
     }
+
+    // return true from the event listener to indicate you wish to
+    // send a response asynchronously (this will keep the message
+    // channel open to the other end until sendResponse is called).
+    return true;
+  }
 );
