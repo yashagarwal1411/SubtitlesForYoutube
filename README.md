@@ -5,7 +5,7 @@ This extension lets you add subtitles to any video you are watching on YouTube. 
 
 Visit the extension here: https://chrome.google.com/webstore/detail/subtitles-for-youtube/oanhbddbfkjaphdibnebkklpplclomal
 
-The extension also supports searching and using subtitles directly from OpenSubtitles.org. Currently you can search subtitles in English and Spanish. I will be adding support for more languages soon. 
+The extension also supports searching and using subtitles directly from OpenSubtitles.org. Currently you can search subtitles in English and Spanish. I will be adding support for more languages soon.
 
 Keyboard Shortcuts:
 
@@ -15,9 +15,30 @@ Keyboard Shortcuts:
 
 'H' - Delay subtitles relative to video
 
+'Q' - Decrease subtitles size
+
+'W' - Increase subtitles size
+
 ------------
 Changelog
 ------------
+v 2.5.4
++ Refactored Code
++ Fixed minor bugs
+
+v 2.4.30
++ Fixed extension not working due to breaking change by YouTube
++ Now video controls bar is not permanently displayed on Fullscreen mode. (Thanks to suggestion by Mikkel Skovgaard)
+
+v 2.4.21
++ Adding support for searching subtitles from Amara.org (Feature sponsored by Mike Ridgway)
+
+v 2.1.14
++ Adding support for displaying Latin script characters like "é" "è"
+
+v 2.1.11
++ Adding support for changing subtitles font size
+
 v 1.11.27
 + Fixed bugs introduced due to change in YouTube history handling
 + Fixed extension not loading sometimes
