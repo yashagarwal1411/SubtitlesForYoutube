@@ -468,8 +468,16 @@ function videoBubbles() {
 			this.el.parentNode.style.overflow = "visible";
 
 			// $('.html5-video-controls').prepend(subHolder);
-			$('.html5-video-controls').prepend(subHolder);
-			$('.html5-video-controls').css("overflow","visible");
+			// $('.html5-video-controls').prepend(subHolder);
+			// $('.html5-video-controls').css("overflow","visible");
+			console.log($("#" + this.id  + "_subs").length);
+			if (!$("#" + this.id  + "_subs").length) {
+				console.log("Not found subholder. adding one");
+				$('.html5-video-content').append(subHolder);
+			} else {
+				console.log("found subHolder. not adding one");
+			}
+			//$('.html5-video-content').css("overflow","visible");
 
 			//----------modified block ends-----------
 
@@ -515,6 +523,11 @@ function videoBubbles() {
 					if (http.readyState == 4)
 						if (http.status == 200)
 							qq.subsReady( qq.subsParser( http.responseText ), key );
+						else {
+						//MODIFIED
+							$('.subtitles').css("display", "none");
+						//MODIFIED ENDS
+						}
 				}
 				http.send();
 			}

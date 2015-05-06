@@ -39,7 +39,7 @@ function fadeOutSubtitlesInfo() {
  * loads subtitle on youtube video */
 function loadSubtitles(subtitlesURL) {
   /* Hide any previously uploaded subtitles */
-  $('.subtitles').css("display", "none");
+  $('.subtitles').css("display", "block");
 
   /* Initialize new bubbles instance */
   if (!subBubblesVideo) {
@@ -55,11 +55,6 @@ function loadSubtitles(subtitlesURL) {
     }
   });
 
-  /* Always show the youtube video controls toolbar
-   * because if they hide then subtitles also hidden
-   * TODO: find a way to show subtitles without showing controls */
-  $('.html5-video-controls').css("opacity", 1);
-
   $('#sub-info').css("opacity", 1);
   $("#sub-message").html("Subtitle upload completed. Enjoy!!! :)");
   $("#sub-message").fadeOut(3000);
@@ -67,6 +62,10 @@ function loadSubtitles(subtitlesURL) {
     $("#sub-message").html("Drag and drop SRT or Zipped srt file here to " +
       "add different subtitles to video or <a onclick=\"alert('" + shortcutsMessage + "')\">View Shortcuts</a>");
     $("#sub-message").fadeIn(3000);
+
+    /* This is required because on adding subtitles some thing happens and
+     * video is shifted 14-15px below */
+    $('video').css("top","0px");
   }, 3000);
 
     /* Set value of font size from local storage */
@@ -150,7 +149,7 @@ function initExtension() {
 
   /*sub-message is used to show status about upload status of subtitle file
   It appears just below the youtube video */
-  $("#content").prepend("<span id='sub-message'></span><a id='sub-open-search-btn'> or Search Subtitles</a>");
+  $("#watch7-content").prepend("<span id='sub-message'></span><a id='sub-open-search-btn'> or Search Subtitles</a>");
 
   if ($("video").length === 0) {
     console.log("Flash video found. Return");
@@ -164,8 +163,8 @@ function initExtension() {
     $(".html5-video-controls").prepend("<span id='sub-info'></span>");
     $("#sub-message").html("Drag and drop SRT or Zipped srt file here to add subtitles to video.");
     $('video').attr('id', 'sub-video');
-    $('#content').prepend('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
-    $('#watch7-content').prepend("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
+    $('#sub-message').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
+    $('#fileupload').after("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
 
     registerFileUploader();
     $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), initExternalSubtitlesSupport);
