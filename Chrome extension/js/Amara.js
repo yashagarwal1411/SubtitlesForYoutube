@@ -8,8 +8,8 @@
 
 function AmaraFactory() {
 
-  var apiUsername = "xxxxx";
-  var apiKey = "xxxxxxxxxx";
+  var apiUsername = "ysh.agrwl@gmail.com";
+  var apiKey = "495fc3c22ee5d6b1748ce254b389b404103b63e6";
   var baseUrl = "http://www.universalsubtitles.org/api2/partners";
   var domainUrl = "http://www.universalsubtitles.org";
 

@@ -8,7 +8,7 @@
 
 /* Tracking using google analytics  */
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-XXXXXX-1']);
+_gaq.push(['_setAccount', 'UA-57647293-1']);
 _gaq.push(['_trackPageview']);
 
 (function() {
