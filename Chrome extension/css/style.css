@@ -27,9 +27,7 @@
   display: none;
   left: 0;
   min-height: 10px;
-  min-
-
-  width: 20px;
+  min-width: 20px;
   opacity: 0;
   padding: 11px 7px 13px 9px;
   position: absolute;
@@ -135,7 +133,7 @@
 /* Default Subtitles */
 .subtitles{
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.116094);
+  background-color: rgba(0, 0, 0, 0.2);
   bottom: 38px;
   font-size: 20px;
   color: #FFFFFF;
