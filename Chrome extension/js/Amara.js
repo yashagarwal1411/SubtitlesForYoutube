@@ -15,9 +15,21 @@ function AmaraFactory() {
 
   var self = {};
 
+  var getParameterByName = function(name, url) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(url);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  };
+
   self.searchSubtitles = function(youtubeUrl, tag, lang, callback) {
     console.log(youtubeUrl);
-    $.ajax({
+    /* Amara expects YouTube URL of the format
+     * https://www.youtube.com/watch?v=QjfA0Q5mXM8 with
+     * no extra parameters. So we need to clean the youtubeUrl
+     * before making the request */
+     youtubeUrl = youtubeUrl.split("?")[0] + "?" + "v=" + getParameterByName("v", youtubeUrl);
+     $.ajax({
       url: baseUrl + "/videos/",
       headers : {
         "X-api-username" : apiUsername,
@@ -38,7 +50,7 @@ function AmaraFactory() {
                   var subUrl = arr[index].languages[j].subtitles_uri;
                   if (subUrl && ans === false) {
                     ans = true;
-                    subUrl = domainUrl + subUrl + "?format=srt";
+                    subUrl = subUrl + "?format=srt";
                     self.getLocalUrl(subUrl, function(localUrl, error) {
                       if (localUrl) {
                         callback({"subtitles": [{
