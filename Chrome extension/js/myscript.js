@@ -108,6 +108,9 @@ function registerKeyboardListeners() {
       if (subtitlesSize < 0) {
         subtitlesSize = 0;
       }
+      if (subtitlesSize > 40) {
+        subtitlesSize = 40;
+      }
       $(".subtitles").css("font-size", subtitlesSize+"px");
       storeFontSizeInLocalStorage(subtitlesSize);
       $("#sub-info").html("Sub size: " + subtitlesSize).fadeIn();
@@ -115,6 +118,9 @@ function registerKeyboardListeners() {
     }
     if (e.keyCode == 'w'.charCodeAt() || e.keyCode == 'W'.charCodeAt()) {
       subtitlesSize += 1;
+      if (subtitlesSize < 0) {
+        subtitlesSize = 0;
+      }
       if (subtitlesSize > 40) {
         subtitlesSize = 40;
       }
