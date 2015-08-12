@@ -133,25 +133,60 @@ function registerKeyboardListeners() {
 }
 
 function registerFileUploader() {
+
   $('#content').fileupload({
-    url: 'https://subtitles-youtube.herokuapp.com/upload/',
+    url: '',
     dataType: 'json',
     add: function(e, data) {
-      data.submit();
-    },
-    done: function(e, data) {
-      console.log(data);
-      loadSubtitles(data.result.url);
-    },
-    send: function(e, data) {
 
-    },
-    progressall: function(e, data) {
-      $("#sub-message").html("Uploading subtitles ...");
-    },
-    fail: function(e, data) {
-      $("#sub-message").html("Subtitle upload failed. Please retry. :(");
-      console.log(e);
+      var file = data.files[0];
+      var reader = new FileReader();
+
+      if (file.name.split(".").pop().toLowerCase() == "srt") {
+
+        reader.onload = function(event) {
+          var subURL = event.target.result;
+          console.log("URL: " + subURL);
+          loadSubtitles(subURL);
+        };
+
+        reader.readAsDataURL(file);
+      } else if (file.name.split(".").pop().toLowerCase() == "zip") {
+        reader.onload = function(event) {
+          var foundSrtFile = false;
+          var zipFileLoaded = new JSZip(event.target.result);
+
+          for (var nameOfFileContainedInZipFile in zipFileLoaded.files)
+          {
+            if (!foundSrtFile) {
+              var fileContainedInZipFile = zipFileLoaded.files[nameOfFileContainedInZipFile];
+
+              var blob = new Blob([fileContainedInZipFile.asUint8Array().buffer]);
+              var readerForZip = new FileReader();
+              if (nameOfFileContainedInZipFile.split(".").pop().toLowerCase() == "srt" &&
+                nameOfFileContainedInZipFile.indexOf("__MACOSX") == -1) {
+
+                readerForZip.onload = function(event) {
+                    var subURL = event.target.result;
+                    console.log("URL: " + subURL);
+                    loadSubtitles(subURL);
+                };
+
+                readerForZip.readAsDataURL(blob);
+                foundSrtFile = true;
+              }
+            }
+          }
+
+          if (!foundSrtFile) {
+            $("#sub-message").html("No srt file found in this zip.");
+          }
+
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+          $("#sub-message").html("Unrecognised file extension. Please upload either a srt file or zipped srt file.");
+      }
     }
   });
 }
