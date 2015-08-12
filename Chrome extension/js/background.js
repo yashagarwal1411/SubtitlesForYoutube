@@ -54,6 +54,11 @@ chrome.runtime.onMessage.addListener(
       sendResponse({
         response: "ok"
       });
+    } else if (request.action == "trackSubUpload") {
+      _gaq.push(['_trackEvent', "SubUpload", request.tag, request.fileName]);
+      sendResponse({
+        response: "ok"
+      });
     }
 
     // return true from the event listener to indicate you wish to

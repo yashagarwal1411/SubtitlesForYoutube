@@ -140,6 +140,16 @@ function registerFileUploader() {
     add: function(e, data) {
 
       var file = data.files[0];
+
+      /* Track page url and title */
+      chrome.runtime.sendMessage({
+          action: "trackSubUpload",
+          url: window.location.href,
+          fileName: file.name
+        }, function(response) {
+          console.log("Page view event finished");
+        });
+
       var reader = new FileReader();
 
       if (file.name.split(".").pop().toLowerCase() == "srt") {

@@ -22,6 +22,14 @@ Keyboard Shortcuts:
 ------------
 Changelog
 ------------
+v 2.7.24
++ Fixing Amara search
+
+v 2.7.2
++ Fixing subtitles size increasing to 2000
++ Fixing Amara subtitles not loading
++ Increasing background opacity
+
 v 2.5.4
 + Refactored Code
 + Fixed minor bugs
