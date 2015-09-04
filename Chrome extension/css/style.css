@@ -121,6 +121,9 @@
   font-weight: bold;
   opacity: 1;
   font-size: 22px;
+  position: absolute;
+  bottom: 40px;
+
 }
 
 #sub-message {

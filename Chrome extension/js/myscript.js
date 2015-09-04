@@ -217,7 +217,7 @@ function initExtension() {
     /* sub-info is used to display information about subs
      * like sync delay or enabled/disabled status.
      * It appears inside youtube video just above the controls toolbar */
-    $(".html5-video-controls").prepend("<span id='sub-info'></span>");
+    $(".html5-video-content").prepend("<span id='sub-info'></span>");
     $("#sub-message").html("Drag and drop SRT or Zipped srt file here to add subtitles to video.");
     $('video').attr('id', 'sub-video');
     $('#sub-message').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');

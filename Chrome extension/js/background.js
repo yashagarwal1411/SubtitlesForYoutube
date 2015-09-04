@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener(
           console.log(data);
           response.response.status["Amara"] = "FAILED";
           OpenSubtitles.loadNewSubs(request.tag, request.subLanguage, 3, function(data, status) {
-            if (status === "OK") {
+            if (status === "OK" && data.subtitles && data.subtitles.length > 0) {
               console.log("Found status OK for OpenSubtitles with data:");
               console.log(data);
               response.response.status["OpenSubtitles"] = "OK";
