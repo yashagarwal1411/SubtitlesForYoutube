@@ -206,7 +206,7 @@ function initExtension() {
 
   /*sub-message is used to show status about upload status of subtitle file
   It appears just below the youtube video */
-  $("#watch7-content").prepend("<span id='sub-message'></span><a id='sub-open-search-btn'> or Search Subtitles</a>");
+  $("#watch7-content").prepend("<div id='subitle-container-first' class='yt-card yt-card-has-padding'><span id='sub-message'></span><a id='sub-open-search-btn'> or Search Subtitles</a></div>");
 
   if ($("video").length === 0) {
     console.log("Flash video found. Return");
@@ -217,10 +217,10 @@ function initExtension() {
     /* sub-info is used to display information about subs
      * like sync delay or enabled/disabled status.
      * It appears inside youtube video just above the controls toolbar */
-    $(".html5-video-content").prepend("<span id='sub-info'></span>");
-    $("#sub-message").html("Drag and drop SRT or Zipped srt file here to add subtitles to video.");
+    $("#sub-message").html("Drag and drop SRT or Zipped srt file here to add subtitles to video");
     $('video').attr('id', 'sub-video');
-    $('#sub-message').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
+    $("#sub-video").after("<span id='sub-info'></span>");
+    $('#subitle-container-first').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
     $('#fileupload').after("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
 
     registerFileUploader();

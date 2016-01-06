@@ -122,14 +122,12 @@
   opacity: 1;
   font-size: 22px;
   position: absolute;
-  bottom: 40px;
-
+  bottom: 12%;
 }
 
 #sub-message {
-  font-family: arial, sans-serif;
-  font-size: larger;
-  font-style: oblique;
+  font-size: 13px;
+  font-family: Roboto;
 }
 
 
@@ -137,7 +135,7 @@
 .subtitles{
   position: absolute;
   background-color: rgba(0, 0, 0, 0.2);
-  bottom: 38px;
+  bottom: 10%;
   font-size: 20px;
   color: #FFFFFF;
   font-weight: bold;

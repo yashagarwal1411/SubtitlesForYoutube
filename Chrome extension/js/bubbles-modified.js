@@ -473,7 +473,7 @@ function videoBubbles() {
 			console.log($("#" + this.id  + "_subs").length);
 			if (!$("#" + this.id  + "_subs").length) {
 				console.log("Not found subholder. adding one");
-				$('.html5-video-content').append(subHolder);
+				$('#sub-video').after(subHolder);
 			} else {
 				console.log("found subHolder. not adding one");
 			}
