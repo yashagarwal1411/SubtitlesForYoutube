@@ -500,7 +500,7 @@ function videoBubbles() {
 				http.open('POST', this.request, true);
 				http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				//MODIFIED
-				http.overrideMimeType("text/plain; charset=ISO-8859-1")
+				http.overrideMimeType("text/plain; charset=UTF8")
 				//MODIFIED ENDS
 				http.onreadystatechange = function() {
 					if (http.readyState == 4)
@@ -517,7 +517,7 @@ function videoBubbles() {
 				http.open( "GET", obj.file, true );
 				//MODIFIED
 				//THIS ELSE CODE BLOCK IS USED
-				http.overrideMimeType("text/plain; charset=ISO-8859-1")
+				http.overrideMimeType("text/plain; charset=UTF8")
 				//MODIFIED ENDS
 				http.onreadystatechange = function() {
 					if (http.readyState == 4)
