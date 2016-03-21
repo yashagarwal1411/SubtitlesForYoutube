@@ -64,7 +64,7 @@ function initExternalSubtitlesSupport() {
           if (value["source"] == "OpenSubtitles") {
             source = "OpenSub";
           }
-          $("#sub-files").append($("<option></option>").attr("value", value["downloadUrl"]).text("[" + source + "]  " + value["name"]));
+          $("#sub-files").append($("<option></option>").attr("value", value["downloadUrl"]).attr("encoding", value["encoding"]).text("[" + source + "]  " + value["name"]));
         });
       } else {
         $("#subtitles-dialog-error").html("No subs found for " + tag + ", Sorry!! Try changing title");
@@ -114,16 +114,23 @@ function initExternalSubtitlesSupport() {
    */
   $("#sub-files").on('change', function() {
     var subDownloadLink = this.value;
+    var encoding = $('option:selected', this).attr('encoding');
+    console.log("ENCODING FOUND HERE: " + encoding);
     var updatedUrl = "";
     if (subDownloadLink && subDownloadLink.indexOf("blob") > -1) {
       console.log("Found local url: " + subDownloadLink);
-      loadSubtitles(subDownloadLink);
+      /* This is Amara url which will not have a encoding defined
+       * assume UTF-8 for them */
+      if (!encoding) {
+        encoding = "UTF-8";
+      }
+      loadSubtitles(subDownloadLink, false, encoding);
     } else {
       console.log("Sub download link is : " + subDownloadLink);
       var encodedURL = encodeURIComponent(subDownloadLink);
       console.log("Encode URI Component: " + encodedURL);
       updatedUrl = "https://subtitles-youtube.herokuapp.com/Upload/uploadGZipFile?url=" + encodedURL;
-      loadSubtitles(updatedUrl);
+      loadSubtitles(updatedUrl, false, encoding);
     }
   });
 

@@ -487,24 +487,27 @@ function videoBubbles() {
 			bubbles.subs[ this.id ] = { "lang" : lang, "subCont" : document.getElementById( this.id  + '_subs' ), 'active' : 0, 'showing' : false, syncNumber : 0 };
 
 			/* if there is a file from local, directly load */
-			for( var key in object ){
+
+			for( var key in object ) {
 				var data = object[ key ];
 				if(data.isLocalFile) {
-					this.subsAddLocal( key, object[ key ] );
+					this.subsAddLocal( key, object[ key ], data.encoding );
 				} else {
-					this.subsAdd( key, object[ key ] );
+					this.subsAdd( key, object[ key ], data.encoding );
 				}
 			}
-				 
+
 		};
 
-		this.subsAddLocal = function( key, obj){
+		this.subsAddLocal = function( key, obj) {
 			this.subsReady( this.subsParser( obj.file ), key );
 		};
 
-		this.subsAdd = function( key, obj, charset ) {
 
-			if( this.request ) //json object download from specified url
+		this.subsAdd = function( key, obj, charset ) {
+			console.log("Charset for file is: " + charset);
+
+			if (this.request) //json object download from specified url
 			{
 				var http =  new XMLHttpRequest(),
 					params = 'url=' + obj.file,
@@ -532,7 +535,7 @@ function videoBubbles() {
 								qq.subsAdd(key, obj, responseCharset);
 							}
 						}
-					}	
+					}
 				}
 				http.send( params );
 			}

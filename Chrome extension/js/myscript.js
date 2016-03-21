@@ -36,9 +36,9 @@ function fadeOutSubtitlesInfo() {
 }
 
 /* Takes input as the url of the subtitle file and
- * loads subtitle on youtube video 
+ * loads subtitle on youtube video
  * add second argument to decide if it's from local file */
-function loadSubtitles(subtitlesURL, isLocalfile) {
+function loadSubtitles(subtitlesURL, isLocalFile, encoding) {
   /* Hide any previously uploaded subtitles */
   $('.subtitles').css("display", "block");
 
@@ -52,13 +52,11 @@ function loadSubtitles(subtitlesURL, isLocalfile) {
   var data = {
     "English": {
       language: "English",
-      file: subtitlesURL
+      file: subtitlesURL,
+      encoding: encoding,
+      isLocalFile: isLocalFile
     }
   };
-
-  if(isLocalfile){
-    data.English.isLocalFile = true;
-  }
 
   subBubblesVideo.subtitles(false, data);
 
@@ -161,11 +159,11 @@ function registerFileUploader() {
 
       if (file.name.split(".").pop().toLowerCase() == "srt") {
 
-        /* directly pass text */ 
+        /* directly pass text */
         reader.onload = function(event) {
           var subResult = event.target.result;
           console.log("Result: " + subResult);
-          loadSubtitles(subResult, true);
+          loadSubtitles(subResult, true, "UTF-8");
         };
 
         reader.readAsText(file);
@@ -184,11 +182,11 @@ function registerFileUploader() {
               if (nameOfFileContainedInZipFile.split(".").pop().toLowerCase() == "srt" &&
                 nameOfFileContainedInZipFile.indexOf("__MACOSX") == -1) {
 
-                /* directly pass text */ 
+                /* directly pass text */
                 readerForZip.onload = function(event) {
                     var subResult = event.target.result;
                     console.log("Result: " + subResult);
-                    loadSubtitles(subResult, true);
+                    loadSubtitles(subResult, true, "UTF-8");
                 };
 
                 readerForZip.readAsText(blob);

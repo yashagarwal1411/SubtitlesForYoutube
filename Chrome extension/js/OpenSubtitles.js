@@ -69,6 +69,7 @@ var OpenSubtitlesFactory = function() {
                 filteredResponse.subtitles.push({
                   "downloadUrl": value["SubDownloadLink"],
                   "lang": subLanguage,
+                  "encoding": value["SubEncoding"],
                   "name": value["SubFileName"],
                   "source": "OpenSubtitles"
                 });
