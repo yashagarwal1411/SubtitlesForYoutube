@@ -36,8 +36,9 @@ function fadeOutSubtitlesInfo() {
 }
 
 /* Takes input as the url of the subtitle file and
- * loads subtitle on youtube video */
-function loadSubtitles(subtitlesURL) {
+ * loads subtitle on youtube video 
+ * add second argument to decide if it's from local file */
+function loadSubtitles(subtitlesURL, isLocalfile) {
   /* Hide any previously uploaded subtitles */
   $('.subtitles').css("display", "block");
 
@@ -48,12 +49,18 @@ function loadSubtitles(subtitlesURL) {
   }
 
   /* language does not matter, set url correctly */
-  subBubblesVideo.subtitles(false, {
+  var data = {
     "English": {
       language: "English",
       file: subtitlesURL
     }
-  });
+  };
+
+  if(isLocalfile){
+    data.English.isLocalFile = true;
+  }
+
+  subBubblesVideo.subtitles(false, data);
 
   $('#sub-info').css("opacity", 1);
   $("#sub-message").html("Subtitle upload completed. Enjoy!!! :)");
@@ -154,13 +161,14 @@ function registerFileUploader() {
 
       if (file.name.split(".").pop().toLowerCase() == "srt") {
 
+        /* directly pass text */ 
         reader.onload = function(event) {
-          var subURL = event.target.result;
-          console.log("URL: " + subURL);
-          loadSubtitles(subURL);
+          var subResult = event.target.result;
+          console.log("Result: " + subResult);
+          loadSubtitles(subResult, true);
         };
 
-        reader.readAsDataURL(file);
+        reader.readAsText(file);
       } else if (file.name.split(".").pop().toLowerCase() == "zip") {
         reader.onload = function(event) {
           var foundSrtFile = false;
@@ -176,13 +184,14 @@ function registerFileUploader() {
               if (nameOfFileContainedInZipFile.split(".").pop().toLowerCase() == "srt" &&
                 nameOfFileContainedInZipFile.indexOf("__MACOSX") == -1) {
 
+                /* directly pass text */ 
                 readerForZip.onload = function(event) {
-                    var subURL = event.target.result;
-                    console.log("URL: " + subURL);
-                    loadSubtitles(subURL);
+                    var subResult = event.target.result;
+                    console.log("Result: " + subResult);
+                    loadSubtitles(subResult, true);
                 };
 
-                readerForZip.readAsDataURL(blob);
+                readerForZip.readAsText(blob);
                 foundSrtFile = true;
               }
             }

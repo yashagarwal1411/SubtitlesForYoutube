@@ -486,10 +486,23 @@ function videoBubbles() {
 
 			bubbles.subs[ this.id ] = { "lang" : lang, "subCont" : document.getElementById( this.id  + '_subs' ), 'active' : 0, 'showing' : false, syncNumber : 0 };
 
-			for( var key in object )
-				  this.subsAdd( key, object[ key ] );
+			/* if there is a file from local, directly load */
+			for( var key in object ){
+				var data = object[ key ];
+				if(data.isLocalFile) {
+					this.subsAddLocal( key, object[ key ] );
+				} else {
+					this.subsAdd( key, object[ key ] );
+				}
+			}
+				 
 		};
-		this.subsAdd = function( key, obj ) {
+
+		this.subsAddLocal = function( key, obj){
+			this.subsReady( this.subsParser( obj.file ), key );
+		};
+
+		this.subsAdd = function( key, obj, charset ) {
 
 			if( this.request ) //json object download from specified url
 			{
@@ -499,13 +512,27 @@ function videoBubbles() {
 
 				http.open('POST', this.request, true);
 				http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				//MODIFIED
-				http.overrideMimeType("text/plain; charset=ISO-8859-1")
-				//MODIFIED ENDS
+				if(charset){
+					http.overrideMimeType("text/plain; charset=" + charset)
+				}
 				http.onreadystatechange = function() {
-					if (http.readyState == 4)
-						if (http.status == 200)
-							qq.subsReady( eval( http.responseText ), key );
+					if (http.readyState == 4){
+						if (http.status == 200){
+
+							/* if specify charset, load it, otherwise send another request to detect */
+							if (charset){
+								qq.subsReady( eval( http.responseText ), key );
+							} else {
+								var type = http.getResponseHeader("content-type");
+								console.log("content-type:" + type);
+								var responseCharset = "UTF-8"; /* default charset */
+								if(type.indexOf("charset">=0)){
+									responseCharset = type.split("charset=")[1];
+								}
+								qq.subsAdd(key, obj, responseCharset);
+							}
+						}
+					}	
 				}
 				http.send( params );
 			}
@@ -515,23 +542,32 @@ function videoBubbles() {
 					qq = this;
 
 				http.open( "GET", obj.file, true );
-				//MODIFIED
-				//THIS ELSE CODE BLOCK IS USED
-				http.overrideMimeType("text/plain; charset=ISO-8859-1")
-				//MODIFIED ENDS
+				if(charset){
+					http.overrideMimeType("text/plain; charset=" + charset)
+				}
 				http.onreadystatechange = function() {
-					if (http.readyState == 4)
-						if (http.status == 200)
-							qq.subsReady( qq.subsParser( http.responseText ), key );
-						else {
-						//MODIFIED
+					if (http.readyState == 4){
+						if (http.status == 200){
+							if (charset){
+								qq.subsReady( qq.subsParser( http.responseText ), key );
+							} else{
+								var type = http.getResponseHeader("content-type");
+								console.log("content-type:" + type);
+								var responseCharset = "UTF-8";
+								if(type.indexOf("charset">=0)){
+									responseCharset = type.split("charset=")[1];
+								}
+								qq.subsAdd(key, obj, responseCharset);
+							}
+						} else {
 							$('.subtitles').css("display", "none");
-						//MODIFIED ENDS
 						}
+					}
 				}
 				http.send();
 			}
 		};
+
 		this.subsReady = function( subsArr, key ){
 			bubbles.subs[ this.id ][ key ] = subsArr;
 
@@ -559,6 +595,7 @@ function videoBubbles() {
 		* SRT JS Parser
 		**********************/
 		this.subsParser = function( obj ) {
+
 			var fileLines = obj.split('\n'),
 				len = fileLines.length - 1,
 				ret = [],
