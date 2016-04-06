@@ -19,7 +19,6 @@ function initExternalSubtitlesSupport() {
 
   /* Clean up the youtube title (remove all '.') */
   var tag = $("#eow-title").html().trim().split('.').join(' ');
-  var subLanguage = "eng"; //Let english be the language by default
   console.log("Tag: " + tag);
 
   function loadNewSubs() {
@@ -28,10 +27,15 @@ function initExternalSubtitlesSupport() {
       console.log("Tag not found in loadNewSubs. So returning");
       return;
     }
+    var amaraSubLanguage = $('#sub-language').find('option:selected').attr('amaraSubLanguage');
+    var openSubtitleSubLanguage = $('#sub-language').val();
+
+    console.log("Searching subs for tag: " + tag + " with lang: " + openSubtitleSubLanguage + " " + amaraSubLanguage);
     $("#subtitles-dialog-error").html("Searching subs for " + tag);
     chrome.runtime.sendMessage({
       action: "loadNewSubs",
-      subLanguage: subLanguage,
+      openSubtitleSubLanguage: openSubtitleSubLanguage,
+      amaraSubLanguage: amaraSubLanguage,
       tag: tag,
       youtubeUrl: window.location.href
     }, function(response) {

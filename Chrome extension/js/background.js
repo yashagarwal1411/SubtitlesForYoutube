@@ -17,13 +17,7 @@ chrome.runtime.onMessage.addListener(
     } else if (request.action == "loadNewSubs") {
       _gaq.push(['_trackEvent', "SubtitlesSearch", request.tag]);
       var response = {"response" : {"status" : {}}};
-      var amaraSubLanguage = "en";
-      if (request.subLanguage === "eng") {
-        amaraSubLanguage = "en";
-      } else if (request.subLanguage === "spa") {
-        amaraSubLanguage = "es";
-      }
-      Amara.searchSubtitles(request.youtubeUrl, request.tag, amaraSubLanguage, function(data, status) {
+      Amara.searchSubtitles(request.youtubeUrl, request.tag, request.amaraSubLanguage, function(data, status) {
         if (status === "OK") {
           console.log("Found status OK for Amara with data:");
           console.log(data);
@@ -34,7 +28,7 @@ chrome.runtime.onMessage.addListener(
           console.log("Found status FAILED for Amara with data:");
           console.log(data);
           response.response.status["Amara"] = "FAILED";
-          OpenSubtitles.loadNewSubs(request.tag, request.subLanguage, 3, function(data, status) {
+          OpenSubtitles.loadNewSubs(request.tag, request.openSubtitleSubLanguage, 3, function(data, status) {
             if (status === "OK" && data.subtitles && data.subtitles.length > 0) {
               console.log("Found status OK for OpenSubtitles with data:");
               console.log(data);

@@ -22,6 +22,22 @@ Keyboard Shortcuts:
 ------------
 Changelog
 ------------
+v 3.3.21
++ Added Chinese support
++ For local files using UTF-8 support
++ For OpenSubtitles subs using charset
+   received from API
+
+v 3.1.06
++ Fixed minor bugs
++ Updated UI
+
+v 2.9.4
++ Fixed minor bugs
+
+v 2.8.13
++ Added support for parsing srt and zipped srt file from javascript itself
+
 v 2.7.24
 + Fixing Amara search
 
