@@ -150,9 +150,10 @@ function registerFileUploader() {
       chrome.runtime.sendMessage({
           action: "trackSubUpload",
           url: window.location.href,
-          fileName: file.name
+          fileName: file.name,
+          tag: $("#eow-title").html()
         }, function(response) {
-          console.log("Page view event finished");
+          console.log("Track sub upload event finished");
         });
 
       var reader = new FileReader();
@@ -233,15 +234,6 @@ function initExtension() {
     registerFileUploader();
     $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), initExternalSubtitlesSupport);
   }
-
-  /* Track page url and title */
-  chrome.runtime.sendMessage({
-      action: "trackPageView",
-      url: window.location.href,
-      tag: $("#eow-title").html()
-    }, function(response) {
-      console.log("Page view event finished");
-    });
 }
 
 var pageHref;

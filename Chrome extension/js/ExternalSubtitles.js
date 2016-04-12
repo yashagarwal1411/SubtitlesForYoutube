@@ -37,7 +37,8 @@ function initExternalSubtitlesSupport() {
       openSubtitleSubLanguage: openSubtitleSubLanguage,
       amaraSubLanguage: amaraSubLanguage,
       tag: tag,
-      youtubeUrl: window.location.href
+      youtubeUrl: window.location.href,
+      originalTag: $("#eow-title").html()
     }, function(response) {
       response = response.response;
       /* This response will be 1 response accumalating data from every 3rd party service

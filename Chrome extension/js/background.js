@@ -15,7 +15,9 @@ chrome.runtime.onMessage.addListener(
     if (request.action == "loadToken") {
       OpenSubtitles.loadToken(sendResponse);
     } else if (request.action == "loadNewSubs") {
-      _gaq.push(['_trackEvent', "SubtitlesSearch", request.tag]);
+
+      _gaq.push(['_trackEvent', "SubtitlesSearch", request.originalTag + ' # ' + request.youtubeUrl, request.openSubtitleSubLanguage + ' # ' + request.originalTag]);
+
       var response = {"response" : {"status" : {}}};
       Amara.searchSubtitles(request.youtubeUrl, request.tag, request.amaraSubLanguage, function(data, status) {
         if (status === "OK") {
@@ -43,13 +45,9 @@ chrome.runtime.onMessage.addListener(
           });
         }
       });
-    } else if (request.action == "trackPageView") {
-      _gaq.push(['_trackEvent', "PageView", request.tag, request.url]);
-      sendResponse({
-        response: "ok"
-      });
     } else if (request.action == "trackSubUpload") {
-      _gaq.push(['_trackEvent', "SubUpload", request.tag, request.fileName]);
+      //also add info of YouTube url
+      _gaq.push(['_trackEvent', "SubUpload", request.tag + ' # ' + request.url, request.fileName]);
       sendResponse({
         response: "ok"
       });
