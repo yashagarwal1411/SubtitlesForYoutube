@@ -22,6 +22,9 @@ Keyboard Shortcuts:
 ------------
 Changelog
 ------------
+v 3.4.12
++ Adding support for Arabic and Hebrew
+
 v 3.3.21
 + Added Chinese support
 + For local files using UTF-8 support
