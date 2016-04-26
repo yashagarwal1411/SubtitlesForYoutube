@@ -22,6 +22,12 @@ Keyboard Shortcuts:
 ------------
 Changelog
 ------------
+v 3.4.26
++ Bugfix: Unable to increase subtilte size using keyboard shortcut 'W'
+
+v 3.4.19
++ Added support for ALL LANGUAGES
+
 v 3.4.12
 + Adding support for Arabic and Hebrew
 

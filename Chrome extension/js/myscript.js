@@ -78,7 +78,7 @@ function loadSubtitles(subtitlesURL, isLocalFile, encoding) {
 }
 
 function registerKeyboardListeners() {
-  window.addEventListener('keypress', function(e) {
+  window.addEventListener('keydown', function(e) {
     if (e.keyCode == 'v'.charCodeAt() || e.keyCode == 'V'.charCodeAt()) {
       if (areSubtitlesShowing) {
         console.log("Switching off subtitles");
