@@ -23,6 +23,10 @@ var shortcutsMessage =  "Subtitles Shortcuts\\n\\n" +
                         "Q : decrease font size \\n" +
                         "W : increase font size";
 
+var autoLoad = false;
+var subLanguage = "";
+var tag = "";
+
 function fadeOutSubtitlesInfo() {
   if (subInfoDisplayTimer) {
     clearTimeout(subInfoDisplayTimer);
@@ -72,9 +76,6 @@ function loadSubtitles(subtitlesURL, isLocalFile, encoding) {
      * video is shifted 14-15px below */
     $('video').css("top","0px");
   }, 3000);
-
-    /* Set value of font size from local storage */
-    getFontSizeFromLocalStorage();
 }
 
 function registerKeyboardListeners() {
@@ -116,7 +117,7 @@ function registerKeyboardListeners() {
       if (subtitlesSize > 40) {
         subtitlesSize = 40;
       }
-      $(".subtitles").css("font-size", subtitlesSize+"px");
+      $(".subtitles").css("font-size", subtitlesSize + "px");
       storeFontSizeInLocalStorage(subtitlesSize);
       $("#sub-info").html("Sub size: " + subtitlesSize).fadeIn();
       fadeOutSubtitlesInfo();
@@ -231,8 +232,22 @@ function initExtension() {
     $('#subitle-container-first').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
     $('#fileupload').after("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
 
+    /* Clean up the youtube title (remove all '.') */
+    tag = $("#eow-title").html().trim().split('.').join(' ');
+    console.log("Tag: " + tag);
+
     registerFileUploader();
-    $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), initExternalSubtitlesSupport);
+
+    $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), function() {
+      initExternalSubtitlesSupport();
+      registerEvents();
+      initDataFromLocalStorage(function() {
+        if (autoLoad) {
+          $("#sub-open-search-btn").click();
+        }
+      });
+    });
+
   }
 }
 
@@ -255,6 +270,14 @@ setInterval(function() {
   }
 }, 3000);
 
+function storeAutoLoadFlag(autoLoad) {
+  chrome.storage.local.set({
+      "autoLoad": autoLoad
+  }, function() {
+    console.log("Stored autoLoad: " + autoLoad + " in chrome storage");
+  });
+}
+
 function storeFontSizeInLocalStorage(fontSize) {
   chrome.storage.local.set({
       "subfontsize": fontSize
@@ -263,12 +286,25 @@ function storeFontSizeInLocalStorage(fontSize) {
   });
 }
 
-function getFontSizeFromLocalStorage() {
+function initDataFromLocalStorage(callback) {
   chrome.storage.local.get(null, function(result) {
     console.log("Found font size in local storage:" + result["subfontsize"]);
+    console.log("Found autoLoad in local storage:" + result["autoLoad"]);
+    console.log("Found language id in local storage:" + result["sublanguageid"]);
     if (result["subfontsize"]) {
       subtitlesSize = result["subfontsize"];
-      $(".subtitles").css("font-size", subtitlesSize+"px");
+      $(".subtitles").css("font-size", subtitlesSize + "px");
     }
+    if (result["autoLoad"] !== null && result["autoLoad"] !== undefined) {
+      autoLoad = result["autoLoad"];
+      $("#subtitles-auto-load").prop('checked', autoLoad);
+    } else {
+      autoLoad = false;
+    }
+    if (result["sublanguageid"]) {
+      subLanguage = result["sublanguageid"];
+      $("#sub-language").val(subLanguage);
+    }
+    callback();
   });
 }
