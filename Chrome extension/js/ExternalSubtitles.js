@@ -70,7 +70,9 @@ function loadNewSubs() {
         if (value["source"] == "OpenSubtitles") {
           source = "OpenSub";
         }
-        $("#sub-files").append($("<option></option>").attr("value", value["downloadUrl"]).attr("encoding", value["encoding"]).text("[" + source + "]  " + value["name"]));
+        $("#sub-files").append($("<option></option>").attr("value", value["downloadUrl"])
+          .attr("encoding", value["encoding"]).attr("actual-download-url", value["actualDownloadUrl"])
+          .attr("file-name", value["name"]).text("[" + source + "]  " + value["name"]));
         if (!firstValue) {
           firstValue = value["downloadUrl"];
         }
@@ -131,14 +133,22 @@ var registerEvents = function() {
    */
   $("#sub-files").on('change', function() {
     var subDownloadLink = this.value;
-    console.log("YOYOY: " + subDownloadLink);
     if (subDownloadLink == "none") {
       console.log("Hiding subtitles");
       subBubblesVideo.subsShow(false);
       areSubtitlesShowing = false;
       $("#sub-info").html("Subtitles disabled").fadeIn();
       fadeOutSubtitlesInfo();
+      $('#sub-file-download').attr('href', "");
+      $('#sub-file-download').attr('download', "");
+      $("#sub-file-download").hide();
       return;
+    } else {
+      var actualDownloadUrl = $('option:selected', this).attr('actual-download-url');
+      var fileName = $('option:selected', this).attr('file-name');
+      $('#sub-file-download').attr('href', actualDownloadUrl);
+      $('#sub-file-download').attr('download', fileName);
+      $("#sub-file-download").show();
     }
     var encoding = $('option:selected', this).attr('encoding');
     console.log("ENCODING FOUND HERE: " + encoding);

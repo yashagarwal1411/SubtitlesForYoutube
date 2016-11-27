@@ -71,6 +71,7 @@ var OpenSubtitlesFactory = function() {
                   "lang": subLanguage,
                   "encoding": value["SubEncoding"],
                   "name": value["SubFileName"],
+                  "actualDownloadUrl": value["SubDownloadLink"],
                   "source": "OpenSubtitles"
                 });
               }

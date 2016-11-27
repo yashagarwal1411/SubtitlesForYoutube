@@ -57,6 +57,7 @@ function AmaraFactory() {
                           "downloadUrl" : localUrl,
                           "lang" : lang,
                           "name" : tag,
+                          "actualDownloadUrl": subUrl,
                           "source" : "Amara"
                         }]}, "OK");
                         console.log("Found sub in lang " + lang + " for url: " + youtubeUrl + " with localUrl: " + localUrl);
