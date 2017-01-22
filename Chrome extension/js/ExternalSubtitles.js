@@ -29,8 +29,11 @@ function loadNewSubs() {
   }
   var amaraSubLanguage = $('#sub-language').find('option:selected').attr('amaraSubLanguage');
   var openSubtitleSubLanguage = $('#sub-language').val();
-
+  $("#subtitles-tag").val(tag);
   console.log("Searching subs for tag: " + tag + " with lang: " + openSubtitleSubLanguage + " " + amaraSubLanguage);
+  $("#search-con .empty-con").css('display','none');
+  $("#sub-files").css('display', 'none');
+  $("#search-con .loader").css('display','block');
   $("#subtitles-dialog-error").html("Searching subs for " + tag);
   chrome.runtime.sendMessage({
     action: "loadNewSubs",
@@ -62,7 +65,10 @@ function loadNewSubs() {
     console.log("Response for loadNewSubs here is: ");
     console.log(response);
     if (response && response.subtitles) {
-      $("#subtitles-dialog-error").html("Subtitles found for " + tag + ", choose one from Subtitle File list");
+      $("#search-con .empty-con").css('display','none');
+      $("#subtitles-dialog-error").html("Please select the subtitle from the dropdown to apply.");
+      $("#sub-files").css('display', 'block');
+      $(".loader").css('display', 'none');
       $("#sub-files").html('<option value="none">None</option>');
       var firstValue = "";
       $.each(response.subtitles, function(index, value) {
@@ -79,8 +85,12 @@ function loadNewSubs() {
         $("#sub-files").val(firstValue).change();
       }
     } else {
-      $("#subtitles-dialog-error").html("No subs found for " + tag + ", Sorry!! Try changing title");
+      // $("#subtitles-dialog-error").html("No subs found for " + tag + ", Sorry!! Try changing title");
+      $("#subtitles-dialog-error").html("");
       $("#sub-files").html('<option value="none">None</option>');
+      $(".loader").css('display', 'none');
+      $("#search-con .empty-con").css('display','block');
+      $("#search-con .empty-con").html("<img src='" + chrome.extension.getURL("images/empty.svg") + "' />");
     }
   });
 }
@@ -95,6 +105,52 @@ var registerEvents = function() {
     $("#subtitles-dialog-box").slideToggle('fast');
     $("#sub-open-search-btn").css("display", "none");
   });
+
+  $("#subtitle-button").click(function() {
+    $('#watch-action-panels').css("display", "none");
+    $('#new-subtitles-con').css("display", "block");
+    $("#search-button").click();
+  })
+
+  $('.action-panel-trigger').click(function() {
+    $('#new-subtitles-con').css("display", "none");
+  })
+
+  var removeSubtitleCon = function() {
+    $('#new-subtitles-con').css("display", "none");
+    $('#subtitle-button').removeClass('yt-uix-button-toggled');
+  }
+
+  $("#subtitle-close").click(function() {
+    removeSubtitleCon();
+  })
+
+  $('#search-con .search-subtitles').click(function() {
+    loadNewSubs();
+  });
+
+  $("#search-button").click(function() {
+    loadNewSubs();
+    $('#search-con').css("display", "block");
+    $('#upload-con').css("display", "none");
+    $('#settings-con').css("display", "none");
+    $("#subtitles-dialog-box").css("display", "block");
+  })
+  $("#upload-button").click(function() {
+    registerFileUploader();
+    $('#search-con').css("display", "none");
+    $('#upload-con').css("display", "block");
+    $('#settings-con').css("display", "none");
+    $("#subtitles-dialog-box").css("display", "none");
+  })
+  $("#settings-button").click(function() {
+    $('#search-con').css("display", "none");
+    $('#upload-con').css("display", "none");
+    $('#settings-con').css("display", "block");
+    $("#subtitles-dialog-box").css("display", "none");
+    $("#poweredby .images").html('<img class="amara" src="'+ chrome.extension.getURL("images/amara.png")+'" width="140px">');
+    $("#poweredby .images").append('<img class="opensubtitles" src="'+ chrome.extension.getURL("images/opensubtitles_128.png")+'" width="140px">');
+  })
 
   $('#subtitles-auto-load').change(function() {
     autoLoad = $("#subtitles-auto-load").prop('checked');
@@ -160,3 +216,76 @@ var registerEvents = function() {
     }
   });
 };
+
+function registerFileUploader() {
+
+  $('#content').fileupload({
+    url: '',
+    dataType: 'json',
+    dropZone: $('.fileinput-button'),
+    add: function(e, data) {
+
+      var file = data.files[0];
+
+      /* Track page url and title */
+      chrome.runtime.sendMessage({
+          action: "trackSubUpload",
+          url: window.location.href,
+          fileName: file.name,
+          tag: $("#eow-title").html()
+        }, function(response) {
+          console.log("Track sub upload event finished");
+        });
+
+      var reader = new FileReader();
+      $('#srt-upload-name').html('"' + file.name + '"'+ ' subtitle applied');
+      if (file.name.split(".").pop().toLowerCase() == "srt") {
+
+        /* directly pass text */
+        reader.onload = function(event) {
+          var subResult = event.target.result;
+          console.log("Result: " + subResult);
+          loadSubtitles(subResult, true, "UTF-8");
+        };
+
+        reader.readAsText(file);
+      } else if (file.name.split(".").pop().toLowerCase() == "zip") {
+        reader.onload = function(event) {
+          var foundSrtFile = false;
+          var zipFileLoaded = new JSZip(event.target.result);
+
+          for (var nameOfFileContainedInZipFile in zipFileLoaded.files)
+          {
+            if (!foundSrtFile) {
+              var fileContainedInZipFile = zipFileLoaded.files[nameOfFileContainedInZipFile];
+
+              var blob = new Blob([fileContainedInZipFile.asUint8Array().buffer]);
+              var readerForZip = new FileReader();
+              if (nameOfFileContainedInZipFile.split(".").pop().toLowerCase() == "srt" &&
+                nameOfFileContainedInZipFile.indexOf("__MACOSX") == -1) {
+
+                /* directly pass text */
+                readerForZip.onload = function(event) {
+                    var subResult = event.target.result;
+                    console.log("Result: " + subResult);
+                    loadSubtitles(subResult, true, "UTF-8");
+                };
+
+                readerForZip.readAsText(blob);
+                foundSrtFile = true;
+              }
+            }
+          }
+
+          if (!foundSrtFile) {
+            $("#srt-upload-name").html("No srt file found in this zip.");
+          }
+
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+          $("#srt-upload-name").html("Unrecognised file extension. Please upload either a srt file or zipped srt file.");
+      }
+    }
+  });
+}

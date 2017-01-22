@@ -1,3 +1,248 @@
+/* NEW UI STYLES */
+.fileinput-button {
+  position: absolute;
+  overflow: hidden;
+  width: 94%;
+  right: 20px;
+  height: 50px;
+  padding-top: 60px;
+  padding-bottom: 25px;
+  text-align: center;
+  background: rgb(247, 247, 247);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(226, 226, 226);;
+  border-radius: 4px;
+  color: #444;
+  font-weight: 400;
+  font-size: 16px;
+}
+.fileinput-button:hover {
+  opacity: 0.5;
+}
+.fileinput-button input {
+  height: 100%;
+  width: 100%;
+  position: inherit;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter:'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+.upload-hint-text {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#new-subtitles-con {
+  height: 250px;
+}
+#sub-files {
+  background: transparent;
+  padding: 5px 35px 5px 5px;
+  font-size: 13px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 50%;
+  background: url(http://res.cloudinary.com/ds24tivvl/image/upload/v1485107231/down-caret_avvblx.png) 96% center / 5% no-repeat rgb(255, 255, 255);
+  height: 35px;
+}
+#search-con {
+  width: 100%;
+  display: inline-flex;
+}
+#search-con #subtitles-tag {
+  padding: 5px 35px 5px 5px;
+  font-size: 13px;
+  border-radius: 4px;
+  width: 70%;
+  height: 25px;
+  border: 1px solid #e2e2e2;
+  color: #444;
+}
+#search-con .search-subtitles {
+  width: 20%;
+  background: #03A9F4;
+  border-radius: 4px;
+  text-align: center;
+  padding: 10px;
+  margin-left: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 350ms;
+}
+#search-con .search-subtitles:hover {
+  background: rgba(3, 169, 244, 0.7);
+}
+#subtitles-tag:focus {
+  outline: none;
+}
+#search-opensub-header {
+  margin: 20px 0px;
+  text-align: center;
+}
+#subtitles-dialog-error {
+  font-size: 13px;
+  color: #929292;
+  font-weight: 500;
+}
+.loader,
+.loader:before,
+.loader:after {
+  background: #e62117;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #e62117;
+  text-indent: -9999em;
+  margin: 10px auto;
+  margin-top: 20px;
+  position: relative;
+  font-size: 3px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+.empty-con {
+  text-align: center;
+}
+
+#subtitle-settings-container {
+  width: 100%;
+  display: inline-flex;
+}
+#subtitles-settings {
+  width: 60%;
+}
+#poweredby {
+  width: 40%;
+}
+.autoload-con {
+  display: inline-flex;
+  width: 97%;
+  padding: 15px 0px 15px 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  background: #f7f7f7;
+  margin-bottom: 15px;
+}
+.autoload-con #subtitles-auto-load {
+  margin-right: 12px;
+  margin-top: 2px;
+}
+.lang-con {
+  display: inline-flex;
+  padding: 7px;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  width: 96%;
+  background: #f7f7f7;
+}
+.lang-con .ext-text {
+  line-height: 33px;
+  padding-left: 10px;
+}
+.lang-con #sub-language {
+  background: transparent;
+  padding: 5px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: auto;
+  margin-right: 0px;
+  width: 40%;
+  background: url(http://res.cloudinary.com/ds24tivvl/image/upload/v1485107231/down-caret_avvblx.png) 96% center / 9% no-repeat rgb(255, 255, 255);
+  height: 35px;
+}
+#poweredby {
+  margin: 0px 0px 0px 15px;
+  padding: 10px 15px 0px 15px;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  background: #f7f7f7;
+}
+#poweredby .images {
+  display: inline-flex;
+}
+.ext-text {
+  font-size: 14px;
+  color: #747476;
+}
+#poweredby .amara {
+  height: 100%;
+  width: 50%;
+  padding-top: 10%;
+  padding-right: 15px;
+}
+#poweredby .opensubtitles {
+  height: 100%;
+  width: 50%;
+  padding-top: 10%;
+  padding-right: 10px;
+}
+#donate-con {
+  text-align: center;
+  height: 33px;
+  margin-top: 15px;
+  line-height: 33px;
+  background: #4e4e4e;
+  border-radius: 4px;
+}
+/* -------------------------------------*/
+
+
 /* Container */
 .bubblesContainer{
   margin:0 auto;
