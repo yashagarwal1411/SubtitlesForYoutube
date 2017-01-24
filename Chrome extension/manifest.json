@@ -11,7 +11,7 @@
     "storage"
   ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "web_accessible_resources": ["open-subtitles.html", "images/opensubtitles_128.png", "images/amara.png"],
+  "web_accessible_resources": ["open-subtitles.html", "subtitles-tab.html", "images/opensubtitles_128.png", "images/amara.png", "images/subtitles_icon.svg", "images/empty.svg", "images/*.*"],
   "content_scripts": [{
     "matches": ["*://www.youtube.com/*"],
     "js": ["js/libs/jquery-1.11.1.js", "js/libs/jquery-ui-1.10.3.custom.min.js",
