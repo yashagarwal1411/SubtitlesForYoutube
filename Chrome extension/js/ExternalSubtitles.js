@@ -203,7 +203,7 @@ var registerEvents = function() {
       var actualDownloadUrl = $('option:selected', this).attr('actual-download-url');
       var fileName = $('option:selected', this).attr('file-name');
       $('#sub-file-download').attr('href', actualDownloadUrl);
-      $('#sub-file-download').attr('download', fileName);
+      $('#sub-file-download').attr('download', "abc.srt");
       $("#sub-file-download").show();
     }
     var encoding = $('option:selected', this).attr('encoding');
