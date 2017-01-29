@@ -40,8 +40,8 @@ function loadNewSubs() {
     openSubtitleSubLanguage: openSubtitleSubLanguage,
     amaraSubLanguage: amaraSubLanguage,
     tag: tag,
-    youtubeUrl: window.location.href,
-    originalTag: $("#eow-title").html()
+    youtubeUrl: originalUrl,
+    originalTag: originalTag
   }, function(response) {
     response = response.response;
     /* This response will be 1 response accumalating data from every 3rd party service
@@ -240,9 +240,9 @@ function registerFileUploader() {
       /* Track page url and title */
       chrome.runtime.sendMessage({
           action: "trackSubUpload",
-          url: window.location.href,
+          url: originalUrl,
           fileName: file.name,
-          tag: $("#eow-title").html()
+          tag: originalTag
         }, function(response) {
           console.log("Track sub upload event finished");
         });

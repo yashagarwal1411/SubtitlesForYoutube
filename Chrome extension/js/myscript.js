@@ -26,6 +26,8 @@ var shortcutsMessage =  "Subtitles Shortcuts\\n\\n" +
 var autoLoad = false;
 var subLanguage = "";
 var tag = "";
+var originalTag = "";
+var originalUrl = "";
 
 function fadeOutSubtitlesInfo() {
   if (subInfoDisplayTimer) {
@@ -160,54 +162,40 @@ function initExtension() {
     // $("#sub-video").after("<span id='sub-info'></span>");
     // $('#subitle-container-first').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
     // $('#fileupload').after("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
-    
+
     $('#watch-action-panels').after("<div id='new-subtitles-con' style='display:none; position: relative;' class='watch-action-panels yt-uix-button-panel hid yt-card yt-card-has-padding'><div>");
     $('.yt-uix-button.action-panel-trigger-share').after('<button id="subtitle-button" class="yt-uix-button yt-uix-button-size-default yt-uix-button-opacity yt-uix-button-has-icon action-panel-trigger-subtitle" type="button" onclick=";return false;" data-button-toggle="true"><span style="margin-right:9px;"><img src="'+ chrome.extension.getURL("images/subtitles_icon.svg")+'" width="18px"></span><span class="yt-uix-button-content">Subtitles</span></button>')
 
-    /* Clean up the youtube title (remove all '.') */
-    tag = $("#eow-title").html().trim().split('.').join(' ');
-    console.log("Tag: " + tag);
-
-    // $("#sub-open-subtitles").load(chrome.extension.getURL("open-subtitles.html"), function() {
-    //   initExternalSubtitlesSupport();
-    //   registerEvents();
-    //   initDataFromLocalStorage(function() {
-    //     if (autoLoad) {
-    //       $("#sub-open-search-btn").click();
-    //     }
-    //   });
-    // });
-    
     $("#new-subtitles-con").load(chrome.extension.getURL("subtitles-tab.html"), function() {
       registerEvents();
+
+      var initTagAndUrl = function() {
+        setInterval(function() {
+          var newTag = $('.ytp-title-link.yt-uix-sessionlink').text().trim().split('.').join(' ');
+          var newUrl = $('.ytp-title-link.yt-uix-sessionlink').attr("href");
+          if (newTag && newUrl) {
+            if (newUrl != originalUrl) {
+              console.log("Playing a new video with url: " + newUrl + " and tag: " + newTag);
+              originalTag = newTag;
+              originalUrl = newUrl;
+              tag = newTag;
+              if (autoLoad) {
+                $("#subtitle-button").click();
+              }
+            }
+          }
+        }, 1000);
+      };
+
       initDataFromLocalStorage(function() {
-        if (autoLoad) {
-          $("#subtitle-button").click();
-        }
+        initTagAndUrl();
       });
     });
 
   }
 }
 
-var pageHref;
-var initExtensionInProcess = false;
-setInterval(function() {
-  if (window.location.href.indexOf("watch") > -1) {
-    if (!pageHref || pageHref != window.location.href) {
-        console.log("Found video page. Starting extension");
-        pageHref = window.location.href;
-        if (!initExtensionInProcess) {
-          initExtensionInProcess = true;
-          setTimeout(function(){
-            $('.subtitles').css("display", "none");
-            initExtension();
-            initExtensionInProcess = false;
-          }, 3000);
-        }
-    }
-  }
-}, 3000);
+initExtension();
 
 function storeAutoLoadFlag(autoLoad) {
   chrome.storage.local.set({
