@@ -1,4 +1,10 @@
-//helper.js
+/*
+ * Subtitles For Youtube
+ *
+ * Created by Yash Agarwal
+ * Copyright (c) 2014 Yash Agarwal. All rights reserved.
+ *
+ */
 
 function storeAutoLoadFlag(autoLoad) {
   chrome.storage.local.set({
