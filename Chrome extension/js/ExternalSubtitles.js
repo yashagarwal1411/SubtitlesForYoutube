@@ -6,21 +6,6 @@
  *
  */
 
-function initExternalSubtitlesSupport() {
-
-  $("#search-opensubtitles-heading").html(
-    "<a href='http://www.opensubtitles.org/en/search' target='_blank'>" +
-      "<img src='" + chrome.extension.getURL("images/opensubtitles_128.png") + "' />" +
-    "</a><br><br>" +
-    "<a href='http://amara.org/en/' target='_blank'>" +
-      "<img width='128px' src='" + chrome.extension.getURL("images/amara.png") + "' />" +
-    "</a>"
-    );
-
-  $("#subtitles-tag").val(tag);
-
-}
-
 function loadNewSubs() {
   if (!tag) {
     $("#subtitles-dialog-error").html("Please enter a title");
@@ -112,20 +97,20 @@ var registerEvents = function() {
     $('#watch-action-panels').css("display", "none");
     $('#new-subtitles-con').css("display", "block");
     $("#search-button").click();
-  })
+  });
 
   $('.action-panel-trigger').click(function() {
     $('#new-subtitles-con').css("display", "none");
-  })
+  });
 
   var removeSubtitleCon = function() {
     $('#new-subtitles-con').css("display", "none");
     $('#subtitle-button').removeClass('yt-uix-button-toggled');
-  }
+  };
 
   $("#subtitle-close").click(function() {
     removeSubtitleCon();
-  })
+  });
 
   $('#search-con .search-subtitles').click(function() {
     loadNewSubs();
@@ -137,14 +122,16 @@ var registerEvents = function() {
     $('#upload-con').css("display", "none");
     $('#settings-con').css("display", "none");
     $("#subtitles-dialog-box").css("display", "block");
-  })
+  });
+
   $("#upload-button").click(function() {
     registerFileUploader();
     $('#search-con').css("display", "none");
     $('#upload-con').css("display", "block");
     $('#settings-con').css("display", "none");
     $("#subtitles-dialog-box").css("display", "none");
-  })
+  });
+
   $("#settings-button").click(function() {
     $('#search-con').css("display", "none");
     $('#upload-con').css("display", "none");
@@ -152,7 +139,7 @@ var registerEvents = function() {
     $("#subtitles-dialog-box").css("display", "none");
     $("#poweredby .images").html('<img class="amara" src="'+ chrome.extension.getURL("images/amara.png")+'" width="140px">');
     $("#poweredby .images").append('<img class="opensubtitles" src="'+ chrome.extension.getURL("images/opensubtitles_128.png")+'" width="140px">');
-  })
+  });
 
   $('#subtitles-auto-load').change(function() {
     autoLoad = $("#subtitles-auto-load").prop('checked');

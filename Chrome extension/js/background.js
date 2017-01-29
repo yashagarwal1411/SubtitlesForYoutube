@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(
       _gaq.push(['_trackEvent', "SubtitlesSearch", request.originalTag + ' # ' + request.youtubeUrl, request.openSubtitleSubLanguage + ' # ' + request.originalTag]);
 
       var response = {"response" : {"status" : {}}};
-      Amara.searchSubtitles(request.youtubeUrl, request.tag, request.amaraSubLanguage, function(data, status) {
+      Amara.searchSubtitles(request.youtubeUrl, request.originalTag, request.amaraSubLanguage, function(data, status) {
         if (status === "OK") {
           console.log("Found status OK for Amara with data:");
           console.log(data);
