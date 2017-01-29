@@ -55,7 +55,7 @@ function loadNewSubs() {
       $("#sub-files").css('display', 'block');
       $(".loader").css('display', 'none');
       $("#sub-files").html('<option value="none">None</option>');
-      var firstValue = "";
+      var firstValue = "none";
       $.each(response.subtitles, function(index, value) {
         var source = value["source"];
         if (value["source"] == "OpenSubtitles") {
@@ -64,7 +64,7 @@ function loadNewSubs() {
         $("#sub-files").append($("<option></option>").attr("value", value["downloadUrl"])
           .attr("encoding", value["encoding"]).attr("actual-download-url", value["actualDownloadUrl"])
           .attr("file-name", value["name"]).text("[" + source + "]  " + value["name"]));
-        if (!firstValue) {
+        if (firstValue == "none") {
           firstValue = value["downloadUrl"];
         }
       });
@@ -75,6 +75,7 @@ function loadNewSubs() {
       // $("#subtitles-dialog-error").html("No subs found for " + tag + ", Sorry!! Try changing title");
       $("#subtitles-dialog-error").html("");
       $("#sub-files").html('<option value="none">None</option>');
+      $("#sub-files").val("none").change();
       $(".loader").css('display', 'none');
       $("#search-con .empty-con").css('display','block');
       $("#search-con .empty-con").html("<img src='" + chrome.extension.getURL("images/empty.svg") + "' />");
@@ -178,7 +179,9 @@ var registerEvents = function() {
     var subDownloadLink = this.value;
     if (subDownloadLink == "none") {
       console.log("Hiding subtitles");
-      subBubblesVideo.subsShow(false);
+      if (subBubblesVideo) {
+        subBubblesVideo.subsShow(false);
+      }
       areSubtitlesShowing = false;
       $("#sub-info").html("Subtitles disabled").fadeIn();
       fadeOutSubtitlesInfo();
