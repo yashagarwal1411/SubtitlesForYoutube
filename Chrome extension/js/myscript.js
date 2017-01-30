@@ -50,7 +50,7 @@ function initExtension() {
     // $("#sub-message").html("Drag and drop SRT or Zipped srt file here to add subtitles to video");
     $("#srt-upload-name").html("Click or drag & drop subtitle file here");
     $('video').attr('id', 'sub-video');
-    // $("#sub-video").after("<span id='sub-info'></span>");
+    $("#sub-video").after("<span id='sub-info'></span>");
     // $('#subitle-container-first').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
     // $('#fileupload').after("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
 
