@@ -106,5 +106,44 @@ var OpenSubtitlesFactory = function() {
 
   };
 
+  self.getLocalUrl = function(subDownloadLink, callback) {
+    var xhr = new XMLHttpRequest();
+    if (subDownloadLink.startsWith("http://")) {
+      console.log("subDownloadLink starts with http://, converting it to https://");
+      subDownloadLink = subDownloadLink.replace("http://","https://");
+    }
+    xhr.open('GET', subDownloadLink, true);
+    xhr.responseType = "arraybuffer";
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status === 200) {
+          console.log("Response data for url: " + subDownloadLink);
+
+          console.log(xhr.response);
+          var arrayBuffer = xhr.response;
+
+          if (arrayBuffer) {
+            var byteArray = new Uint8Array(arrayBuffer);
+            var gunzip = new Zlib.Gunzip(byteArray);
+            var plain = gunzip.decompress();
+            var blob = new Blob([plain], {type: 'application/octet-binary'}); // pass a useful mime type here
+            var url = URL.createObjectURL(blob);
+            console.log("Local url for subtitle is: " + url);
+            callback(url, null);
+          } else {
+            console.error("Array buffer nil from response data");
+            callback("", "Array buffer nil from response data");
+          }
+
+        } else {
+          console.error("Error response data for url: " + subDownloadLink);
+          console.error(xhr.response);
+          callback("", xhr.response);
+        }
+      }
+    };
+    xhr.send(null);
+  };
+
   return self;
 };

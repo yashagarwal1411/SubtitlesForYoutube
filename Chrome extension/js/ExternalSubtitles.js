@@ -6,6 +6,8 @@
  *
  */
 
+ var OpenSubtitles = OpenSubtitlesFactory();
+
 function loadNewSubs() {
   if (!tag) {
     $("#subtitles-dialog-error").html("Please enter a title");
@@ -209,10 +211,13 @@ var registerEvents = function() {
       loadSubtitles(subDownloadLink, false, encoding);
     } else {
       console.log("Sub download link is : " + subDownloadLink);
-      var encodedURL = encodeURIComponent(subDownloadLink);
-      console.log("Encode URI Component: " + encodedURL);
-      updatedUrl = "https://subtitles-youtube.herokuapp.com/Upload/uploadGZipFile?url=" + encodedURL;
-      loadSubtitles(updatedUrl, false, encoding);
+      OpenSubtitles.getLocalUrl(subDownloadLink, function(updatedUrl, error) {
+        if (updatedUrl) {
+          loadSubtitles(updatedUrl, false, encoding);
+        } else {
+          console.error("updatedUrl not found");
+        }
+      });
     }
   });
 };
