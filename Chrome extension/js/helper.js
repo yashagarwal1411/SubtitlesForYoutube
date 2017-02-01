@@ -22,11 +22,20 @@ function storeFontSizeInLocalStorage(fontSize) {
   });
 }
 
+function setFirstLoad(firstLoad) {
+  chrome.storage.local.set({
+      "firstLoad": firstLoad
+  }, function() {
+    console.log("Stored first load: " + firstLoad + " in chrome storage");
+  });
+}
+
 function initDataFromLocalStorage() {
   chrome.storage.local.get(null, function(result) {
     console.log("Found font size in local storage:" + result["subfontsize"]);
     console.log("Found autoLoad in local storage:" + result["autoLoad"]);
     console.log("Found language id in local storage:" + result["sublanguageid"]);
+    console.log("Found First load flag in local storage:" + result["firstLoad"]);
 
     if (result["subfontsize"]) {
       subtitlesSize = result["subfontsize"];
@@ -42,6 +51,12 @@ function initDataFromLocalStorage() {
       subLanguage = result["sublanguageid"];
     } else {
       subLanguage = "eng";
+    }
+    if (result["firstLoad"]) {
+      firstLoad = false;
+    } else {
+      setFirstLoad(true);
+      firstLoad = true;
     }
 
   });

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="311px" height="50px" viewBox="0 0 311 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-2" transform="translate(-563.000000, -228.000000)">
+            <g id="Group" transform="translate(520.000000, 196.000000)">
+                <g id="header" transform="translate(-41.000000, -21.000000)">
+                    <g id="Group-7" transform="translate(84.000000, 53.000000)">
+                        <g id="Group-2" transform="translate(0.441589, 0.194964)">
+                            <g id="logo">
+                                <g id="Group">
+                                    <rect id="Rectangle-6" fill="#E71E13" x="0" y="0" width="49.7711892" height="49.1700089" rx="11.590656"></rect>
+                                    <rect id="Rectangle-7" fill="#FFFFFF" x="3.95907187" y="22.9460042" width="20.9265227" height="3.31736918" rx="1.65868459"></rect>
+                                    <rect id="Rectangle-7" fill="#FFFFFF" x="28.8446665" y="22.9460042" width="15.8362875" height="3.31736918" rx="1.65868459"></rect>
+                                    <rect id="Rectangle-7" fill="#FFFFFF" x="3.95907187" y="30.3215055" width="12.4427973" height="3.31736918" rx="1.65868459"></rect>
+                                    <rect id="Rectangle-7" fill="#FFFFFF" x="20.360941" y="30.3215055" width="24.3200129" height="3.31736918" rx="1.65868459"></rect>
+                                    <rect id="Rectangle-7" fill="#FFFFFF" x="36.7628102" y="37.3412027" width="7.91814373" height="3.31736918" rx="1.65868459"></rect>
+                                    <rect id="Rectangle-7" fill="#FFFFFF" x="3.95907187" y="37.3412027" width="29.4102481" height="3.31736918" rx="1.65868459"></rect>
+                                </g>
+                                <text id="Subtitles-for-YouTub" font-family="AvenirNext-DemiBold, Avenir Next" font-size="24.83712" font-weight="500" fill="#FFFFFF">
+                                    <tspan x="63.471028" y="34.0576332">Subtitles for YouTube</tspan>
+                                </text>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

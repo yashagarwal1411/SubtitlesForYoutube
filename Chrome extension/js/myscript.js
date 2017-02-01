@@ -28,16 +28,21 @@ var subLanguage = "";
 var tag = "";
 var originalTag = "";
 var originalUrl = "";
+var firstLoad = true;
 
 initDataFromLocalStorage();
-
+firstLoad = true;
 /* Function used to initliaze extension */
 function initExtension() {
+  if (firstLoad) {
+    $('#footer-container').after("<div id='onboarding-modal-con'><div>");
+    $("#onboarding-modal-con").load(chrome.extension.getURL("onboarding.html"));
+    // $('#onboarding-modal #header-img').attr('src', '"' + chrome.extension.getURL('onboarding-header.png') + '"');
+  }
 
   /*sub-message is used to show status about upload status of subtitle file
   It appears just below the youtube video */
   // $("#watch7-content").prepend("<div id='subitle-container-first' class='yt-card yt-card-has-padding'><span id='sub-message'></span><a id='sub-open-search-btn'> or Search Subtitles</a></div>");
-
   if ($("video").length === 0) {
     console.log("Flash video found. Return");
     $("#sub-message").html("This youtube video runs on Adobe Flash." + "Adding subtitles is not supported for it yet.");
@@ -63,12 +68,17 @@ function initExtension() {
       $(".subtitles").css("font-size", subtitlesSize + "px");
       $("#subtitles-auto-load").prop('checked', autoLoad);
       $("#sub-language").val(subLanguage);
+      if (autoLoad) {
+        $("#subtitle-button").click();
+        $("#subtitle-button").addClass("yt-uix-button-toggled");
+      }
     });
   }
 }
 
 var pageHref;
 var initExtensionInProcess = false;
+
 setInterval(function() {
   if (window.location.href.indexOf("watch") > -1) {
     if (!pageHref || pageHref != window.location.href) {

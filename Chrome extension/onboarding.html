@@ -1,0 +1,92 @@
+<div id="onboarding-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+	    <span class="close">&times;</span>
+	    <img class="logo" src="">
+	  </div>
+	  <div class="modal-body">
+	  	<!-- <div class="screens-con screen1">
+		  	<div class="tick-circle">
+		  		<img class="tick" src="">
+		  	</div>
+		  	<h2 class="updated-text">Updated Succesfully!</h2>
+		  	<p class="updated-subText">Subtitles for YouTube now has a fresh new look!</p>
+		  </div> -->
+		  <div class="screens-con screen1">
+		  	<img class="onboard-screen1" src="" width="100%">
+		  	<h2 class="updated-text">Fresh new interface</h2>
+		  	<p class="updated-subText">Access Subtitle configurations in the <br/>native YouTube way!</p>
+		  </div>
+		  <div class="screens-con screen2" style="display: none;">
+		  	<img class="onboard-screen2" src="" width="100%">
+		  	<h2 class="updated-text">Search for subtitles</h2>
+		  	<p class="updated-subText">Search for millions of subtitles to suit the video!</p>
+		  </div>
+		  <div class="screens-con screen3" style="display: none;">
+		  	<img class="onboard-screen3" src="" width="100%">
+		  	<h2 class="updated-text">Upload your own subtitles</h2>
+		  	<p class="updated-subText">Just drag and drop your '.srt' files!</p>
+		  </div>
+		  <div class="screens-con screen4" style="display: none;">
+		  	<img class="onboard-screen4" src="" width="100%">
+		  	<h2 class="updated-text">Customize</h2>
+		  	<p class="updated-subText">Configure your subtitles to load automatically in different languages!</p>
+		  </div>
+	  </div>
+	  <div class="modal-footer next" id="screen-footer">
+		  <div class="screen1">
+	  		<h1>Next</h1>
+		  </div>
+		  <div class="screen2" style="display: none;">
+	  		<h1>Next</h1>
+		  </div>
+		  <div class="screen3" style="display: none;">
+	  		<h1>Next</h1>
+		  </div>
+		  <div class="screen4" style="display: none;">
+	  		<h1>Done!</h1>
+		  </div>
+	  </div>
+  </div>
+</div>
+
+<script>
+  if ($('#onboarding-modal')) {
+  	//Showing the onboarding modal
+  	$('#onboarding-modal').css("display", "block");
+
+  	//Adding proper image url's
+  	$('#onboarding-modal .logo').attr('src', chrome.extension.getURL("images/proper-logo.svg"));
+  	$('#onboarding-modal .tick').attr('src', chrome.extension.getURL("images/tick.png"));
+  	$('#onboarding-modal .onboard-screen1').attr('src', chrome.extension.getURL("images/onboarding2.png"));
+  	$('#onboarding-modal .onboard-screen2').attr('src', chrome.extension.getURL("images/onboarding3.png"));
+  	$('#onboarding-modal .onboard-screen3').attr('src', chrome.extension.getURL("images/onboarding4.png"));
+  	$('#onboarding-modal .onboard-screen4').attr('src', chrome.extension.getURL("images/onboarding5.png"));
+  }
+
+  //Handling the on click listeners for the next buttons in onboarding modal
+  $('#onboarding-modal .close').click(function() {
+  	$('#onboarding-modal').css("display", "none");
+  })
+  $('#screen-footer .screen1').click(function() {
+  	$('.screen1').remove();
+  	setTimeout(function() {
+  		$('.screen2').css('display', 'block');
+  	}, 250);
+  })
+  $('#screen-footer .screen2').click(function() {
+  	$('.screen2').remove();
+  	setTimeout(function() {
+  		$('.screen3').css('display', 'block');
+  	}, 250);
+  })
+  $('#screen-footer .screen3').click(function() {
+  	$('.screen3').remove();
+  	setTimeout(function() {
+  		$('.screen4').css('display', 'block');
+  	}, 250);
+  })
+  $('#screen-footer .screen4').click(function() {
+  	$('#onboarding-modal').css("display", "none");
+  })
+</script>
