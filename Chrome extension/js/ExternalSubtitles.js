@@ -51,13 +51,13 @@ function loadNewSubs() {
 
     console.log("Response for loadNewSubs here is: ");
     console.log(response);
+    var firstValue = "none";
     if (response && response.subtitles) {
       $("#search-con .empty-con").css('display','none');
       $("#subtitles-dialog-error").html("Please select the subtitle from the dropdown to apply.");
       $("#sub-files").css('display', 'block');
       $(".loader").css('display', 'none');
       $("#sub-files").html('<option value="none">None</option>');
-      var firstValue = "none";
       $.each(response.subtitles, function(index, value) {
         var source = value["source"];
         if (value["source"] == "OpenSubtitles") {
@@ -70,18 +70,11 @@ function loadNewSubs() {
           firstValue = value["downloadUrl"];
         }
       });
-      if (autoLoad && firstValue) {
-        $("#sub-files").val(firstValue).change();
-      }
     } else {
-      // $("#subtitles-dialog-error").html("No subs found for " + tag + ", Sorry!! Try changing title");
       $("#subtitles-dialog-error").html("");
       $("#sub-files").html('<option value="none">None</option>');
-      $("#sub-files").val("none").change();
-      $(".loader").css('display', 'none');
-      $("#search-con .empty-con").css('display','block');
-      $("#search-con .empty-con").html("<img src='" + chrome.extension.getURL("images/empty.svg") + "' />");
     }
+    $("#sub-files").val(firstValue).change();
   });
 }
 
@@ -180,16 +173,14 @@ var registerEvents = function() {
   $("#sub-files").on('change', function() {
     var subDownloadLink = this.value;
     if (subDownloadLink == "none") {
-      console.log("Hiding subtitles");
-      if (subBubblesVideo) {
-        subBubblesVideo.subsShow(false);
-      }
-      areSubtitlesShowing = false;
-      $("#sub-info").html("Subtitles disabled").fadeIn();
-      fadeOutSubtitlesInfo();
+      $(".loader").css('display', 'none');
+      $("#sub-files").css('display', 'none');
+      $("#search-con .empty-con").css('display','block');
+      $("#search-con .empty-con").html("<img src='" + chrome.extension.getURL("images/empty.svg") + "' />");
       $('#sub-file-download').attr('href', "");
       $('#sub-file-download').attr('download', "");
       $("#sub-file-download").hide();
+      $('.subtitles').css("display", "none");
       return;
     } else {
       var actualDownloadUrl = $('option:selected', this).attr('actual-download-url');
