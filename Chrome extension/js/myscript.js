@@ -63,10 +63,6 @@ function initExtension() {
       $(".subtitles").css("font-size", subtitlesSize + "px");
       $("#subtitles-auto-load").prop('checked', autoLoad);
       $("#sub-language").val(subLanguage);
-
-      if (autoLoad) {
-        $("#subtitle-button").click();
-      }
     });
   }
 }
