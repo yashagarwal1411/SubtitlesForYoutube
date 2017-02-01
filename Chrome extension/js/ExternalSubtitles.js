@@ -128,6 +128,7 @@ var registerEvents = function() {
     $('#search-con').css("display", "block");
     $('#upload-con').css("display", "none");
     $('#settings-con').css("display", "none");
+    $('#sub-file-download').css("display", "none");
     $("#subtitles-dialog-box").css("display", "block");
   });
 
