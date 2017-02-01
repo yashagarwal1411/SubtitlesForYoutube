@@ -31,12 +31,12 @@ var originalUrl = "";
 var firstLoad = true;
 
 initDataFromLocalStorage();
-firstLoad = true;
 /* Function used to initliaze extension */
 function initExtension() {
   if (firstLoad) {
     $('#footer-container').after("<div id='onboarding-modal-con'><div>");
     $("#onboarding-modal-con").load(chrome.extension.getURL("onboarding.html"));
+    firstLoad = false;
     // $('#onboarding-modal #header-img').attr('src', '"' + chrome.extension.getURL('onboarding-header.png') + '"');
   }
 
