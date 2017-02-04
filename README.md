@@ -1,27 +1,36 @@
 SubtitlesForYoutube
 ===================
 
-This extension lets you add subtitles to any video you are watching on YouTube. Just drag and drop .SRT file or zipped .SRT file for your movie on to the video and the subtitles will start showing up.
+This extension lets you add subtitles to any video you are watching on YouTube. Just drag and drop .SRT file or zipped .SRT file for your movie on to the upload-box and the subtitles will start showing up.
 
-Visit the extension here: https://chrome.google.com/webstore/detail/subtitles-for-youtube/oanhbddbfkjaphdibnebkklpplclomal
+The extension also supports searching and using subtitles directly from OpenSubtitles.org and Amara.org. Now you can search in ALL LANGUAGES.
 
-The extension also supports searching and using subtitles directly from OpenSubtitles.org. Currently you can search subtitles in English and Spanish. I will be adding support for more languages soon.
+Note: If you already had opened a YouTube page before installing the extension you will not see extension load on that page. Just refresh the page once after installation is complete.
 
 Keyboard Shortcuts:
 
 'V' - Enable/Disable subtitles
-
 'G' - Precede subtitles relative to video
-
 'H' - Delay subtitles relative to video
-
 'Q' - Decrease subtitles size
-
 'W' - Increase subtitles size
+
+Do not forget to rate and review the app once you use it.
+
+Also do visit http://www.diycaptions.com/ which makes it very easy to create captions for YouTube videos.
+
+Github Repo: https://github.com/yashagarwal1411/SubtitlesForYoutube
+
+Developers: Yash Agarwal (ysh.agrwl@gmail.com), Nitin R Gupta (nitinramachandragupta@gmail.com)
 
 ------------
 Changelog
 ------------
+v 4.2.2
++ UI Overhaul
++ Added setting to auto search and load subtitles
++ Added download subtitle option
+
 v 3.4.26
 + Bugfix: Unable to increase subtilte size using keyboard shortcut 'W'
 
