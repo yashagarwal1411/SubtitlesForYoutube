@@ -1,4 +1,73 @@
 /* NEW UI STYLES */
+.subtitleButton {
+  padding: 0px 10px 0px 15px;
+  line-height: 38px;
+  cursor: pointer;
+  opacity: 0.4;
+}
+.subtitleButton.clicked {
+  opacity: 1;
+}
+.subtitleButton:hover {
+  opacity: 1;
+}
+.subtitleButtonImg {
+  margin-right: 9px;
+  top: 4px;
+  position: absolute;
+}
+.subtitleButtonText {
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: .007px;
+  margin-left: 28px;
+  text-transform: uppercase;  
+}
+.tabs-con {
+  margin: 20px 0px;
+}
+.tab-title:focus {
+  outline-style: none;
+}
+.tab-title {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: black;
+  opacity: 0.4;
+  text-transform: uppercase;  
+}
+/*.tab-title:first-child {
+  padding-left: 0px;
+}*/
+.tab-title.clicked {
+  opacity: 1;
+  border-bottom: 3px solid #2693e6;
+}
+.tab-title:hover {
+  opacity: 1;
+}
+#apply {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  background: #03a9f4;
+  color: white;
+  cursor: pointer;
+  transition: all 300ms;
+}
+#apply:focus {
+  outline-style: none;
+}
+#apply:hover {
+  opacity: 0.7;
+}
 .fileinput-button {
   position: absolute;
   overflow: hidden;
@@ -36,10 +105,12 @@
 .upload-hint-text {
   margin-bottom: 15px;
   text-align: center;
+  font-size: 1.5rem;
 }
 
 #new-subtitles-con {
-  height: 250px;
+  height: 280px;
+  border-bottom: 1px solid #eeeeee;
 }
 #sub-files {
   background: transparent;
@@ -89,6 +160,7 @@
   text-align: center;
   padding: 10px;
   margin-left: 10px;
+  font-size: 1.5rem;
   color: white;
   cursor: pointer;
   transition: all 350ms;
@@ -221,6 +293,8 @@
 .key-text {
   margin-top: 7px;
   margin-left: 7px;
+  color: #747476;
+  font-size: 1.3rem;
 }
 .autoload-con #subtitles-auto-load {
   margin-right: 12px;

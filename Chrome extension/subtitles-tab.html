@@ -2,18 +2,16 @@
 <div id="action-panel-subtitle" class="action-panel-content">
   <div id="watch-actions-subtitle-panel">
     <div class="subtitle-panel">
-      <div class="yt-uix-tabs">
-        <span class="yt-uix-button-group" data-button-toggle-group="subtitle-panels">
-          <button class="yt-uix-button yt-uix-button-size-default yt-uix-button-text subtitle-panel-search yt-uix-button-toggled yt-card-title" type="button" id="search-button" onclick=";return false;" data-button-toggle="true">
-            <span class="yt-uix-button-content">Search</span>
-          </button>
-          <button class="yt-uix-button yt-uix-button-size-default yt-uix-button-text subtitle-panel-upload yt-card-title" id="upload-button" type="button" onclick=";return false;" data-button-toggle="true">
-            <span class="yt-uix-button-content">Upload</span>
-          </button>
-          <button class="yt-uix-button yt-uix-button-size-default yt-uix-button-text subtitle-panel-settings yt-card-title" id="settings-button" type="button" onclick=";return false;" data-button-toggle="true">
-            <span class="yt-uix-button-content">Settings</span>
-          </button>
-        </span>
+      <div class="tabs-con">
+        <button class="tab-title" id="search-sub-button" type="button" >
+          <span class="tab-title-name">Search</span>
+        </button>
+        <button class="tab-title" id="upload-button" type="button" >
+          <span class="tab-title-name">Upload</span>
+        </button>
+        <button class="tab-title" id="settings-button" type="button" >
+          <span class="tab-title-name">Settings</span>
+        </button>
       </div>
 
       <div class="subtitle-panel-search-container" id="search-con">
@@ -33,6 +31,7 @@
               <select id="sub-files" style="display: none;">
                 <option value="none">None</option>
               </select>
+              <button id="apply" style="display:none"> Apply</button>
               <a id="sub-file-download" style="display:none"> Download .srt</a>
             </div>
           </div>
@@ -193,4 +192,4 @@
     </div>
   </div>
 </div>
-<button class="yt-uix-button yt-uix-button-size-default yt-uix-button-default yt-uix-button-empty yt-uix-button-has-icon no-icon-markup yt-uix-button-opacity yt-uix-close" type="button" id="subtitle-close" style="position: absolute;top: 15px;right: 3px;border: none;background:no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflP4QDIj.webp) -230px -26px;background-size: 435px 425px;width: 10px;height: 10px;"></button>
+<button class="yt-uix-button yt-uix-button-size-default yt-uix-button-default yt-uix-button-empty yt-uix-button-has-icon no-icon-markup yt-uix-button-opacity yt-uix-close" type="button" id="subtitle-close" style="cursor:pointer;position: absolute;top: 10px;right: 3px;border: none;background:no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflP4QDIj.webp) -230px -26px;background-size: 435px 425px;width: 10px;height: 10px;"></button>

@@ -96,10 +96,10 @@ var registerEvents = function() {
 
   // On click subtitle icon
   $("#subtitle-button").click(function() {
-    $('#subtitle-button').addClass('yt-uix-button-toggled');
+    $('#subtitle-button').addClass('clicked');
     $('#watch-action-panels').css("display", "none");
     $('#new-subtitles-con').css("display", "block");
-    $("#search-button").click();
+    $("#search-sub-button").click();
   });
 
   $('.action-panel-trigger').click(function() {
@@ -113,6 +113,7 @@ var registerEvents = function() {
 
   // On click of cross icon
   $("#subtitle-close").click(function() {
+    $('.subtitleButton').removeClass('clicked');
     removeSubtitleCon();
   });
 
@@ -120,21 +121,29 @@ var registerEvents = function() {
   $('#search-con .search-subtitles').click(function() {
     loadNewSubs();
     $('#sub-file-download').css("display", "none");
+    $('#apply').css("display", "none");
   });
 
   // On click of search tab button
-  $("#search-button").click(function() {
+  $("#search-sub-button").click(function() {
     loadNewSubs();
+    $('#search-sub-button').addClass('clicked');
+    $('#upload-button').removeClass('clicked');
+    $('#settings-button').removeClass('clicked');
     $('#search-con').css("display", "block");
     $('#upload-con').css("display", "none");
     $('#settings-con').css("display", "none");
     $('#sub-file-download').css("display", "none");
+    $('#apply').css("display", "none");
     $("#subtitles-dialog-box").css("display", "block");
   });
 
   // On click of upload tab button
   $("#upload-button").click(function() {
     registerFileUploader();
+    $('#upload-button').addClass('clicked');
+    $('#search-sub-button').removeClass('clicked');
+    $('#settings-button').removeClass('clicked');
     $('#search-con').css("display", "none");
     $('#upload-con').css("display", "block");
     $('#settings-con').css("display", "none");
@@ -143,6 +152,9 @@ var registerEvents = function() {
 
   // On click of settings tab button
   $("#settings-button").click(function() {
+    $('#settings-button').addClass('clicked');
+    $('#search-sub-button').removeClass('clicked');
+    $('#upload-button').removeClass('clicked');
     $('#search-con').css("display", "none");
     $('#upload-con').css("display", "none");
     $('#settings-con').css("display", "block");
@@ -161,6 +173,7 @@ var registerEvents = function() {
   $("#subtitles-tag").on('change', function() {
     console.log("Subtitle tag is:" + this.value);
     tag = this.value;
+    console.log(tag);
     loadNewSubs();
   });
 
@@ -194,6 +207,7 @@ var registerEvents = function() {
       $('#sub-file-download').attr('href', "");
       $('#sub-file-download').attr('download', "");
       $("#sub-file-download").css('display', 'none');
+      $('#apply').css("display", "none");
       $('.subtitles').css("display", "none");
       return;
     } else {
@@ -202,6 +216,7 @@ var registerEvents = function() {
       $('#sub-file-download').attr('href', actualDownloadUrl);
       $('#sub-file-download').attr('download', "abc.srt");
       $("#sub-file-download").css('display', 'inline-block');
+      $('#apply').css("display", "inline-block");
     }
     var encoding = $('option:selected', this).attr('encoding');
     console.log("ENCODING FOUND HERE: " + encoding);

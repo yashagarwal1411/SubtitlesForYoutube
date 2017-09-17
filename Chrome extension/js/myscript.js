@@ -59,8 +59,8 @@ function initExtension() {
     // $('#subitle-container-first').after('<input id="fileupload" type="file" name="uploadFile" style="display:none"/>');
     // $('#fileupload').after("<div id='sub-open-subtitles' style='display:none' class='yt-card yt-card-has-padding'><div>");
 
-    $('#info').find('#top-level-buttons').prepend('<button id="subtitle-button" class="style-scope ytd-menu-renderer style-text force-icon-button" type="button" onclick=";return false;" data-button-toggle="true"><span style="margin-right:9px;"><img src="'+ chrome.extension.getURL("images/subtitles_icon.svg")+'" width="18px"></span><span class="yt-uix-button-content">Subtitles</span></button>');
-    $('#meta').before("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");
+    $('#info').find('#top-level-buttons').append('<div id="subtitle-button" class="subtitleButton" type="button" onclick=";return false;" data-button-toggle="true"><span class="subtitleButtonImg"><img src="'+ chrome.extension.getURL("images/subtitles_icon.svg")+'" width="18px"></span><span class="subtitleButtonText">Subtitles</span></div>');
+    $('#meta').prepend("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");
 
     $("#new-subtitles-con").load(chrome.extension.getURL("subtitles-tab.html"), function() {
       registerEvents();
@@ -106,7 +106,7 @@ setInterval(function() {
       if (autoLoad) {
         $('.subtitles').css("display", "block");
         $("#subtitle-button").click();
-        $("#subtitle-button").addClass("yt-uix-button-toggled");
+        $("#subtitle-button").addClass("clicked");
       }
     }
   }
