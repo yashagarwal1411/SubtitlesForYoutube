@@ -6,7 +6,7 @@
  *
  */
 
- var OpenSubtitles = OpenSubtitlesFactory();
+var OpenSubtitles = OpenSubtitlesFactory();
 
 function loadNewSubs() {
   if (!tag) {
@@ -84,6 +84,7 @@ function loadNewSubs() {
 }
 
 var registerEvents = function() {
+  console.log("Inside registerEvents");
 
   /* If user clicks on search button then display the open-subtitles dialog*/
   $("#sub-open-search-btn").click(function() {
@@ -92,18 +93,6 @@ var registerEvents = function() {
     $("#sub-open-subtitles").css("display", "block");
     $("#subtitles-dialog-box").slideToggle('fast');
     $("#sub-open-search-btn").css("display", "none");
-  });
-
-  // On click subtitle icon
-  $("#subtitle-button").click(function() {
-    $('#subtitle-button').addClass('clicked');
-    $('#watch-action-panels').css("display", "none");
-    $('#new-subtitles-con').css("display", "block");
-    $("#search-sub-button").click();
-  });
-
-  $('.action-panel-trigger').click(function() {
-    $('#new-subtitles-con').css("display", "none");
   });
 
   var removeSubtitleCon = function() {
