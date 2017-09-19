@@ -80,7 +80,7 @@ function initExtension() {
     if ($("#new-subtitles-con").length) {
       // console.log("Found existing #new-subtitles-con");
     } else {
-      $('#meta').prepend("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");
+      $('#main').find('#meta').prepend("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");
     }
 
     if ($("#action-panel-subtitle").length) {
