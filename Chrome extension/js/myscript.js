@@ -123,7 +123,7 @@ setInterval(function() {
   var newTag = $('.ytp-title-link.yt-uix-sessionlink').text().trim().split('.').join(' ');
   var newUrl = $('.ytp-title-link.yt-uix-sessionlink').attr("href");
   // console.log("Found tag: " + newTag)
-  if (newTag && newUrl && $("#subtitle-button").length) {
+  if (newTag && newUrl && $("#subtitle-button").length && $("#action-panel-subtitle").length) {
     if (newUrl != originalUrl) {
       console.log("Playing a new video with url: " + newUrl + " and tag: " + newTag);
       originalTag = newTag;

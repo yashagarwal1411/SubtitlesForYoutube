@@ -45,7 +45,7 @@ function initDataFromLocalStorage() {
     if (result["autoLoad"] !== null && result["autoLoad"] !== undefined) {
       autoLoad = result["autoLoad"];
     } else {
-      autoLoad = false;
+      autoLoad = true;
     }
     if (result["sublanguageid"]) {
       subLanguage = result["sublanguageid"];
