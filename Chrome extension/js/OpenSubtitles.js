@@ -62,6 +62,10 @@ var OpenSubtitlesFactory = function() {
             callback({
               response: false
             });
+          } else if (response[0]["status"].indexOf("401 Unauthorized") != -1) {
+            console.error("Response from OpenSubtitles contains 401 Unauthorized");
+            token = "";
+            self.loadNewSubs(tag, subLanguage, retries - 1, callback);
           } else {
             var filteredResponse = {"subtitles": []};
             $.each(response[0]["data"], function(index, value) {
