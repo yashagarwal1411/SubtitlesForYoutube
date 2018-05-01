@@ -26,6 +26,21 @@ Developers: Yash Agarwal (ysh.agrwl@gmail.com), Nitin R Gupta (nitinramachandrag
 ------------
 Changelog
 ------------
+v 5.5.1
++ Fixed issue with subtitle search box
+
+v 5.3.24
++ Fixed Amara expired api keys
+
+v 4.10.25
++ Fixed Bug: Search box opening in Playlist section
+
+v 4.9.19
++ Adding support for new YouTube design
+
+v 4.2.18
++ Fixed minor issue
+
 v 4.2.2
 + UI Overhaul
 + Added setting to auto search and load subtitles
