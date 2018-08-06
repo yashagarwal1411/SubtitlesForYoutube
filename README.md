@@ -26,6 +26,11 @@ Developers: Yash Agarwal (ysh.agrwl@gmail.com), Nitin R Gupta (nitinramachandrag
 ------------
 Changelog
 ------------
+
+v 5.8.6
++ Fixed issues after YouTube UI update
++ Fixed subs auto hiding
+
 v 5.5.1
 + Fixed issue with subtitle search box
 
