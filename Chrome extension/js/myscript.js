@@ -80,7 +80,7 @@ function initExtension() {
     if ($("#new-subtitles-con").length) {
       // console.log("Found existing #new-subtitles-con");
     } else {
-      $('#main').find('> #meta').prepend("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");
+      $('#primary-inner').find('> #meta').prepend("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");
     }
 
     if ($("#action-panel-subtitle").length) {
@@ -107,9 +107,9 @@ setInterval(function() {
     if (!initExtensionInProcess) {
       initExtensionInProcess = true;
       setTimeout(function() {
-        if (!autoLoad) {
-          $('.subtitles').css("display", "none");
-        }
+        // if (!autoLoad) {
+        //   $('.subtitles').css("display", "none");
+        // }
         initExtension();
         initExtensionInProcess = false;
       }, 1000);
