@@ -102,6 +102,9 @@
       font-size: 13px;
       margin: 0 0 10px 0;
     }
+    .subtitle-highlight {
+      background-color: yellow;
+    }
     .subtitle-text {
       margin: 0 0 0 5px;
       line-height: 20px;
@@ -161,12 +164,17 @@
       found = [];
 
   function search(text) {
+
+    cleanHighlights();
+
     highlight = -1;
     found = [];
 
     let keyword = text.trim();
 
     if (!isEmptyKeyword()) {
+
+      lastSearch = keyword;
 
       $(`.subtitle:contains(${keyword})`).each(function () {
         found.push({div: this, offset: this.offsetTop});
@@ -176,8 +184,6 @@
         updateHighlight();
         jumpToNext();
       }
-
-      lastSearch = keyword;
     }
     else {
       updateHighlight();
@@ -197,12 +203,32 @@
     }
   }
 
-  function jumpTime(time) {
-    $('#sub-video').currentTime = time;
+  function cleanHighlights() {
+    let subtitles = [];
+
+    for (let sub of found) {
+      subtitles.push($(sub.div).find('.subtitle-text').first());
+    }
+
+    for (let sub of subtitles) {
+      let text = $(sub).text();
+      sub.html(text);
+    }
   }
 
-  function highlightKeywords() {
+  function highlightKeywords(subtitle) {
 
+    cleanHighlights();
+
+    let sub = $(subtitle).find('.subtitle-text').first();
+    let text = sub.text();
+
+    let index = text.indexOf(lastSearch);
+
+    let start = text.substring(0, index);
+    let end = text.substring(index + lastSearch.length, text.length);
+
+    sub.html(`${start} <span class="subtitle-highlight"> ${lastSearch} </span> ${end}`);
   }
 
   function updateHighlight() {
@@ -222,6 +248,7 @@
     }
 
     updateHighlight();
+    highlightKeywords(found[highlight].div);
 
     let container = document.getElementById('subtitles-timestamp-con');
     container.scrollTop = found[highlight].offset - container.offsetTop;
@@ -240,6 +267,7 @@
     }
 
     updateHighlight();
+    highlightKeywords(found[highlight].div);
 
     let container = document.getElementById('subtitles-timestamp-con');
     container.scrollTop = found[highlight].offset - container.offsetTop;
