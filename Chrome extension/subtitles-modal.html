@@ -160,11 +160,11 @@
 <script>
 
   $.expr[':'].icontains = function(el, i, m) {
-      var search = m[3];
-      if (!search) return false;
+    var search = m[3];
+    if (!search) return false;
 
-      var pattern = new RegExp(search, 'i');
-      return pattern.test($(el).text());
+    var pattern = new RegExp(search, 'i');
+    return pattern.test($(el).text());
   };
 
   let lastSearch = '',
@@ -229,12 +229,15 @@
     let sub = $(subtitle).find('.subtitle-text').first();
     let text = sub.text();
 
-    let index = text.indexOf(lastSearch);
+    let lowerCase = text.toLowerCase();
+    let index = lowerCase.indexOf(lastSearch.toLowerCase());
 
     let start = text.substring(0, index);
     let end = text.substring(index + lastSearch.length, text.length);
 
-    sub.html(`${start} <span class="subtitle-highlight"> ${lastSearch} </span> ${end}`);
+    let original = text.substring(index, index + lastSearch.length);
+
+    sub.html(`${start} <span class="subtitle-highlight"> ${original} </span> ${end}`);
   }
 
   function updateHighlight() {
