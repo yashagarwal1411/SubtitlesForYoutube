@@ -165,7 +165,7 @@
 
   function search(text) {
 
-    cleanHighlights();
+    clearHighlights();
 
     highlight = -1;
     found = [];
@@ -203,7 +203,7 @@
     }
   }
 
-  function cleanHighlights() {
+  function clearHighlights() {
     let subtitles = [];
 
     for (let sub of found) {
@@ -218,7 +218,7 @@
 
   function highlightKeywords(subtitle) {
 
-    cleanHighlights();
+    clearHighlights();
 
     let sub = $(subtitle).find('.subtitle-text').first();
     let text = sub.text();
