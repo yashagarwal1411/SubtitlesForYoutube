@@ -1,0 +1,258 @@
+<div id="subtitles-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div id="search-controls">
+        <div id="search-controls-input">
+          <input type="text" id="subtitles-modal-search" placeholder="Search for subtitle text...">
+          <div class="search-options">
+            <span id="search-occurences"> 0/0 </span>
+            <img class="chevron chevron-up">
+            <img class="chevron chevron-down">
+          </div>
+        </div>
+        <div class="search-button">Search</div>
+      </div>
+      <div id="subtitles-timestamp-con">
+        <!-- Appended through script -->
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Modal Stylings */
+    #subtitles-modal.modal {
+      display: none;
+      position: fixed;
+      z-index: 1999999999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: none;
+      background-color: rgba(0,0,0,0.4);
+    }
+    #search-controls {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 30px 0;
+    }
+    #search-controls-input {
+      flex-grow: 1;
+      display: flex;
+    }
+    #subtitles-modal-search {
+      padding: 5px 35px 5px 5px;
+      font-size: 13px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #e2e2e2;
+      border-right: none;
+      color: #444;
+      flex-grow: 1;
+    }
+    #subtitles-modal-search:focus {
+      outline: none;
+    }
+    .search-options {
+      width: 80px;
+      border: 1px solid #e2e2e2;
+      border-left: none;
+      color: #444;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px 0 0;
+    }
+    #search-occurences {
+      line-height: 37px;
+      font-size: 13px;
+    }
+    #search-controls .search-button {
+      width: 20%;
+      background: #03A9F4;
+      border-radius: 4px;
+      text-align: center;
+      padding: 10px;
+      margin-left: 10px;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      transition: all 350ms;
+    }
+    #subtitles-timestamp-con {
+      height: 100%;
+      border: 1px solid #e2e2e2;
+      color: #444;
+      overflow-y: scroll;
+      border-radius: 4px;
+      padding: 10px;
+    }
+    .subtitle {
+      min-height: 20px;
+      font-size: 13px;
+      margin: 5px 0 5px 0;
+    }
+    .subtitle-text {
+      margin: 0 0 0 5px;
+    }
+    #search-controls .search-button:hover {
+      background: rgba(3, 169, 244, 0.7);
+    }
+    #subtitles-modal .modal-content {
+      border-radius: 4px;
+      background-color: white;
+      margin: 6% auto;
+      width: 550px;
+      height: 450px;
+      padding: 20px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+      -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s
+    }
+    #subtitles-modal .modal-header {
+      height: 40px;
+    }
+    #subtitles-modal .modal-body {
+      padding: 2px 0px;
+      height: 300px;
+    }
+    #subtitles-modal .close {
+      color: black;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      position: relative;
+      top: -10px;
+    }
+    #subtitles-modal .close:hover,
+    #subtitles-modal .close:focus {
+      color: grey;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    @-webkit-keyframes animatetop {
+        from {top: -300px; opacity: 0} 
+        to {top: 0; opacity: 1}
+    }
+    @keyframes animatetop {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+    }
+  </style>
+</div>
+
+<script>
+
+  let lastSearch = '',
+      active = -1,
+      found = [];
+
+  function search(text) {
+    active - 1;
+    found = [];
+    
+    $(`.subtitle:contains(${text})`).each(function () {
+      found.push(this.offsetTop);
+    });
+
+    if (found.length > 0) {
+      updateActive();
+      jumpToNext();
+    }
+
+    lastSearch = text;
+  }
+
+  function updateActive() {
+    $('#search-occurences').html(`${active}/${found.length - 1}`);
+  }
+
+  function jumpToPrevious() {
+
+    if (active - 1 < 0) {
+      active = found.length - 1;
+    }
+    else {
+      active--;
+    }
+
+    updateActive();
+
+    let container = document.getElementById('subtitles-timestamp-con');
+    container.scrollTop = found[active] - container.offsetTop;
+  }
+
+  function jumpToNext() {
+    
+    if (active + 1 >= found.length) {
+      active = 0;
+    }
+    else {
+      active++;
+    }
+
+    updateActive();
+
+    let container = document.getElementById('subtitles-timestamp-con');
+    container.scrollTop = found[active] - container.offsetTop;
+  }
+
+  if ($('#subtitles-modal')) {
+
+    //Showing the subtitles modal
+    $('#subtitles-modal').css("display", "block");
+
+    $('.chevron-up').attr('src', chrome.extension.getURL("images/chevron-small-up.svg"));
+    $('.chevron-down').attr('src', chrome.extension.getURL("images/chevron-small-down.svg"));
+
+    $('.chevron-up').click(function () {
+      jumpToPrevious();
+    });
+
+    $('.chevron-down').click(function () {
+      jumpToNext();
+    });
+
+    $('#subtitles-modal-search').change(function (evt) {
+      search(evt.target.value);
+    });
+
+    $('#subtitles-modal-search').on('keypress', function (evt) {
+      if (evt.which === 13 && $('#subtitles-modal-search').val() === lastSearch) {
+        jumpToNext();
+      }
+    });
+
+    $('.search-button').click(function () {
+      search($('#subtitles-modal-search').val());
+    });
+
+    $('#subtitles-modal .close').click(function() {
+      $('#subtitles-modal-con').remove();
+      $('#subtitles-modal').css("display", "none");
+    });
+
+    let currentUrl = window.location.href.split('/watch')[1].split('&t=')[0];
+
+    for (let sub of Bubbles.subs['sub-video']['English']) {
+      $('#subtitles-timestamp-con').append(`
+        <div class="subtitle">
+          <a href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.start) + 's'}"> 
+            ${sub.start}
+          </a>
+          -
+          <a href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.end) + 's'}"> 
+            ${sub.end}
+          </a>
+          <span class="subtitle-text"> ${sub.text} </span> 
+        </div>`
+      );
+    }
+  }
+</script>
