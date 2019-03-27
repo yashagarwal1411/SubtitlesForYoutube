@@ -82,6 +82,12 @@
       color: white;
       cursor: pointer;
       transition: all 350ms;
+      user-select: none;
+      cursor: pointer;
+    }
+    .chevron {
+      user-select: none;
+      cursor: pointer;
     }
     #subtitles-timestamp-con {
       height: 100%;
@@ -94,10 +100,11 @@
     .subtitle {
       min-height: 20px;
       font-size: 13px;
-      margin: 5px 0 5px 0;
+      margin: 0 0 10px 0;
     }
     .subtitle-text {
       margin: 0 0 0 5px;
+      line-height: 20px;
     }
     #search-controls .search-button:hover {
       background: rgba(3, 169, 244, 0.7);
@@ -150,57 +157,84 @@
 <script>
 
   let lastSearch = '',
-      active = -1,
+      highlight = -1,
       found = [];
 
   function search(text) {
-    active - 1;
+    highlight = -1;
     found = [];
-    
-    $(`.subtitle:contains(${text})`).each(function () {
-      found.push(this.offsetTop);
-    });
 
-    if (found.length > 0) {
-      updateActive();
-      jumpToNext();
+    let keyword = text.trim();
+
+    if (!isEmptyKeyword()) {
+
+      $(`.subtitle:contains(${keyword})`).each(function () {
+        found.push(this.offsetTop);
+      });
+
+      if (found.length > 0) {
+        updateHighlight();
+        jumpToNext();
+      }
+
+      lastSearch = keyword;
     }
-
-    lastSearch = text;
+    else {
+      updateHighlight();
+    }
   }
 
-  function updateActive() {
-    $('#search-occurences').html(`${active}/${found.length - 1}`);
+  function getKeyword() {
+    return $('#subtitles-modal-search').val().trim();
+  }
+
+  function isEmptyKeyword() {
+    if (getKeyword().length === 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  function updateHighlight() {
+    $('#search-occurences').html(`${highlight + 1}/${found.length}`);
   }
 
   function jumpToPrevious() {
+    if (isEmptyKeyword()) {
+      return;
+    }
 
-    if (active - 1 < 0) {
-      active = found.length - 1;
+    if (highlight - 1 < 0) {
+      highlight = found.length - 1;
     }
     else {
-      active--;
+      highlight--;
     }
 
-    updateActive();
+    updateHighlight();
 
     let container = document.getElementById('subtitles-timestamp-con');
-    container.scrollTop = found[active] - container.offsetTop;
+    container.scrollTop = found[highlight] - container.offsetTop;
   }
 
   function jumpToNext() {
-    
-    if (active + 1 >= found.length) {
-      active = 0;
+    if (isEmptyKeyword()) {
+      return;
+    }
+     
+    if (highlight + 1 >= found.length) {
+      highlight = 0;
     }
     else {
-      active++;
+      highlight++;
     }
 
-    updateActive();
+    updateHighlight();
 
     let container = document.getElementById('subtitles-timestamp-con');
-    container.scrollTop = found[active] - container.offsetTop;
+    container.scrollTop = found[highlight] - container.offsetTop;
   }
 
   if ($('#subtitles-modal')) {
@@ -224,13 +258,18 @@
     });
 
     $('#subtitles-modal-search').on('keypress', function (evt) {
-      if (evt.which === 13 && $('#subtitles-modal-search').val() === lastSearch) {
+      if (evt.which === 13 && getKeyword() === lastSearch) {
         jumpToNext();
       }
     });
 
     $('.search-button').click(function () {
-      search($('#subtitles-modal-search').val());
+      if (getKeyword() !== lastSearch) {
+        search(getKeyword());
+      }
+      else {
+        jumpToNext();
+      }
     });
 
     $('#subtitles-modal .close').click(function() {
@@ -244,13 +283,13 @@
       $('#subtitles-timestamp-con').append(`
         <div class="subtitle">
           <a href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.start) + 's'}"> 
-            ${sub.start}
+            ${sub.start.toFixed(2)}
           </a>
           -
           <a href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.end) + 's'}"> 
-            ${sub.end}
+            ${sub.end.toFixed(2)}
           </a>
-          <span class="subtitle-text"> ${sub.text} </span> 
+          <span class="subtitle-text"> ${$('<div>' + sub.text + '</div>').text()} </span> 
         </div>`
       );
     }
