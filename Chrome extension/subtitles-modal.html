@@ -169,7 +169,7 @@
     if (!isEmptyKeyword()) {
 
       $(`.subtitle:contains(${keyword})`).each(function () {
-        found.push(this.offsetTop);
+        found.push({div: this, offset: this.offsetTop});
       });
 
       if (found.length > 0) {
@@ -197,6 +197,14 @@
     }
   }
 
+  function jumpTime(time) {
+    $('#sub-video').currentTime = time;
+  }
+
+  function highlightKeywords() {
+
+  }
+
   function updateHighlight() {
     $('#search-occurences').html(`${highlight + 1}/${found.length}`);
   }
@@ -216,14 +224,14 @@
     updateHighlight();
 
     let container = document.getElementById('subtitles-timestamp-con');
-    container.scrollTop = found[highlight] - container.offsetTop;
+    container.scrollTop = found[highlight].offset - container.offsetTop;
   }
 
   function jumpToNext() {
     if (isEmptyKeyword()) {
       return;
     }
-     
+    
     if (highlight + 1 >= found.length) {
       highlight = 0;
     }
@@ -234,7 +242,7 @@
     updateHighlight();
 
     let container = document.getElementById('subtitles-timestamp-con');
-    container.scrollTop = found[highlight] - container.offsetTop;
+    container.scrollTop = found[highlight].offset - container.offsetTop;
   }
 
   if ($('#subtitles-modal')) {
@@ -282,16 +290,26 @@
     for (let sub of Bubbles.subs['sub-video']['English']) {
       $('#subtitles-timestamp-con').append(`
         <div class="subtitle">
-          <a href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.start) + 's'}"> 
+          <a class="subtitle-timestamp" 
+            data-time="${sub.start}"
+            href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.start) + 's'}"> 
             ${sub.start.toFixed(2)}
           </a>
           -
-          <a href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.end) + 's'}"> 
+          <a class="subtitle-timestamp"
+            data-time="${sub.end}"  
+            href="${'/watch' + currentUrl + '&t=' + Math.trunc(sub.end) + 's'}"> 
             ${sub.end.toFixed(2)}
           </a>
           <span class="subtitle-text"> ${$('<div>' + sub.text + '</div>').text()} </span> 
         </div>`
       );
     }
+
+    $('.subtitle-timestamp').click(function (evt) {
+      evt.preventDefault();
+      let time = parseInt($(evt.target).data('time'));
+      document.getElementById('sub-video').currentTime = time;
+    });
   }
 </script>
