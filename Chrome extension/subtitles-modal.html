@@ -181,13 +181,11 @@
       });
 
       if (found.length > 0) {
-        updateHighlight();
         jumpToNext();
       }
     }
-    else {
-      updateHighlight();
-    }
+    
+    updateHighlight();
   }
 
   function getKeyword() {
@@ -236,7 +234,7 @@
   }
 
   function jumpToPrevious() {
-    if (isEmptyKeyword()) {
+    if (isEmptyKeyword() || found.length === 0) {
       return;
     }
 
@@ -255,7 +253,7 @@
   }
 
   function jumpToNext() {
-    if (isEmptyKeyword()) {
+    if (isEmptyKeyword() || found.length === 0) {
       return;
     }
     
