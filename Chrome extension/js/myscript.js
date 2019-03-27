@@ -119,10 +119,17 @@ setInterval(function() {
   }
 }, 1000);
 
+
+
 setInterval(function() {
-  var newTag = $('.ytp-title-link.yt-uix-sessionlink').text().trim().split('.').join(' ');
-  var newUrl = $('.ytp-title-link.yt-uix-sessionlink').attr("href");
-  // console.log("Found tag: " + newTag)
+  var newTag = $('yt-formatted-string.style-scope.ytd-video-primary-info-renderer').text().trim().split('.').join(' ');
+  // console.log($('div #content'))
+  // console.log($('div #content').find('ytd-watch-flexy'))
+  // console.log($('div #content').find('ytd-watch-flexy').first().attr("video-id"))
+  var videoId = $('ytd-watch-flexy.style-scope.ytd-page-manager.hide-skeleton').attr("video-id");
+  var newUrl = "https://www.youtube.com/watch?v=" + videoId
+  console.log("Found tag: " + newTag)
+  console.log("Found newUrl: ", newUrl)
   if (newTag && newUrl && $("#subtitle-button").length && $("#action-panel-subtitle").length) {
     if (newUrl != originalUrl) {
       console.log("Playing a new video with url: " + newUrl + " and tag: " + newTag);
@@ -135,5 +142,8 @@ setInterval(function() {
         $("#subtitle-button").addClass("clicked");
       }
     }
+  } else {
+    // console.log("newTag or newUrl is empty")
+    // console.log("newTag: ", newTag, "newUrl: ", newUrl)
   }
 }, 1000);
