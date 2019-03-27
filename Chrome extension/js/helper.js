@@ -64,6 +64,11 @@ function initDataFromLocalStorage() {
 
 function registerKeyboardListeners() {
   window.addEventListener('keydown', function(e) {
+
+    if(document.getElementById('subtitles-modal-con')) {
+      return;
+    }
+
     if (e.keyCode == 'v'.charCodeAt() || e.keyCode == 'V'.charCodeAt()) {
       if (areSubtitlesShowing) {
         console.log("Switching off subtitles");

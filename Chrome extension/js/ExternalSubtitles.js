@@ -111,6 +111,8 @@ var registerEvents = function() {
     loadNewSubs();
     $('#sub-file-download').css("display", "none");
     $('#apply').css("display", "none");
+    $('#subtitles-modal-button').css("display", "none");
+    $("")
   });
 
   // On click of search tab button
@@ -124,6 +126,7 @@ var registerEvents = function() {
     $('#settings-con').css("display", "none");
     $('#sub-file-download').css("display", "none");
     $('#apply').css("display", "none");
+    $('#subtitles-modal-button').css("display", "none");
     $("#subtitles-dialog-box").css("display", "block");
   });
 
@@ -197,6 +200,7 @@ var registerEvents = function() {
       $('#sub-file-download').attr('download', "");
       $("#sub-file-download").css('display', 'none');
       $('#apply').css("display", "none");
+      $('#subtitles-modal-button').css("display", "none");
       $('.subtitles').css("display", "none");
       return;
     } else {
@@ -206,6 +210,7 @@ var registerEvents = function() {
       $('#sub-file-download').attr('download', "abc.srt");
       $("#sub-file-download").css('display', 'inline-block');
       $('#apply').css("display", "inline-block");
+      $("#subtitles-modal-button").css("display", "inline-block");
     }
     var encoding = $('option:selected', this).attr('encoding');
     console.log("ENCODING FOUND HERE: " + encoding);
@@ -228,6 +233,12 @@ var registerEvents = function() {
         }
       });
     }
+  });
+
+  // On click of subtitle search button loads a modal
+  $("#subtitles-modal-button").click(function() {
+    $(document.body).append("<div id='subtitles-modal-con'><div>");
+    $("#subtitles-modal-con").load(chrome.extension.getURL("subtitles-modal.html"));
   });
 };
 
