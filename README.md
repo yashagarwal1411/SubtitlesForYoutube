@@ -27,6 +27,12 @@ Developers: Yash Agarwal (ysh.agrwl@gmail.com), Nitin R Gupta (nitinramachandrag
 Changelog
 ------------
 
+v 6.3.31
++ Added option to search inside subtitle
+
+v 6.1.14
++ Fixed issues after YouTube UI update
+
 v 5.8.6
 + Fixed issues after YouTube UI update
 + Fixed subs auto hiding
