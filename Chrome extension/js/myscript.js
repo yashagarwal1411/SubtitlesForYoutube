@@ -65,7 +65,7 @@ function initExtension() {
     if ($("#subtitle-button").length) {
       // console.log("Found existing #subtitle-button");
     } else {
-      $('#info').find('#top-level-buttons').append('<div id="subtitle-button" class="subtitleButton" type="button" onclick=";return false;" data-button-toggle="true"><span class="subtitleButtonImg"><img src="'+ chrome.extension.getURL("images/subtitles_icon.svg")+'" width="18px"></span><span class="subtitleButtonText">Subtitles</span></div>');
+      $('*[id=info]').find('#top-level-buttons').append('<div id="subtitle-button" class="subtitleButton" type="button" onclick=";return false;" data-button-toggle="true"><span class="subtitleButtonImg"><img src="'+ chrome.extension.getURL("images/subtitles_icon.svg")+'" width="18px"></span><span class="subtitleButtonText">Subtitles</span></div>');
 
       // On click subtitle icon
       $("#subtitle-button").click(function() {
