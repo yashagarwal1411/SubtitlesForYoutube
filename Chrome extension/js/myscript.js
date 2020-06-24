@@ -122,7 +122,7 @@ setInterval(function() {
 
 
 setInterval(function() {
-  var newTag = $('yt-formatted-string.style-scope.ytd-video-primary-info-renderer').text().trim().split('.').join(' ');
+  var newTag = $('.title.style-scope.ytd-video-primary-info-renderer').text().trim().split('.').join(' ');
   // console.log($('div #content'))
   // console.log($('div #content').find('ytd-watch-flexy'))
   // console.log($('div #content').find('ytd-watch-flexy').first().attr("video-id"))

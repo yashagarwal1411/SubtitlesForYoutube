@@ -1,13 +1,15 @@
 {
   "name": "Subtitles For YouTube",
   "manifest_version": 2,
-  "version": "7.4.02",
+  "version": "7.6.24",
   "icons": {
     "128": "images/icon.png"
   },
-  "description": "Use this extension to add drag and drop subtitles to any youtube video",
+  "description": "Use this extension to add subtitles available to user to any YouTube video",
   "permissions": [
-    "*://*/*",
+    "*://api.opensubtitles.org/*",
+    "https://www.amara.org/*",
+    "https://amara.org/*",
     "storage"
   ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",

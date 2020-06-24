@@ -8,10 +8,16 @@
 
 var OpenSubtitlesFactory = function() {
 
+  var numTokenRetries = 0;
+  setInterval(() => {
+    numTokenRetries = 0;
+  }, 5*60*1000); 
+
   var self = {};
   var token;
 
   self.loadToken = function(retries, callback) {
+
     //Return directly as token might be required on multiple pages
     //TODO: Check if token expired then relogin
     if (token) {
@@ -20,6 +26,16 @@ var OpenSubtitlesFactory = function() {
       callback(token, null);
       return;
     }
+
+
+    if (numTokenRetries > 3) {
+      console.error("numTokenRetries is greater than 3, returning");
+      callback(null, "Token not loaded");
+      return
+    }
+
+    numTokenRetries++
+
     $.xmlrpc({
       url: 'http://api.opensubtitles.org/xml-rpc',
       methodName: 'LogIn',
