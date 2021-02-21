@@ -112,7 +112,8 @@ var registerEvents = function() {
     $('#sub-file-download').css("display", "none");
     $('#apply').css("display", "none");
     $('#subtitles-modal-button').css("display", "none");
-    $("")
+    $("#subtitles-delay-time").css("display", "none");
+    $("#subtitles-delay-button").css("display", "none");
   });
 
   // On click of search tab button
@@ -127,6 +128,8 @@ var registerEvents = function() {
     $('#sub-file-download').css("display", "none");
     $('#apply').css("display", "none");
     $('#subtitles-modal-button').css("display", "none");
+    $("#subtitles-delay-time").css("display", "none");
+      $("#subtitles-delay-button").css("display", "none");
     $("#subtitles-dialog-box").css("display", "block");
   });
 
@@ -201,6 +204,8 @@ var registerEvents = function() {
       $("#sub-file-download").css('display', 'none');
       $('#apply').css("display", "none");
       $('#subtitles-modal-button').css("display", "none");
+      $("#subtitles-delay-time").css("display", "none");
+      $("#subtitles-delay-button").css("display", "none");
       $('.subtitles').css("display", "none");
       return;
     } else {
@@ -211,6 +216,8 @@ var registerEvents = function() {
       $("#sub-file-download").css('display', 'inline-block');
       $('#apply').css("display", "inline-block");
       $("#subtitles-modal-button").css("display", "inline-block");
+      $("#subtitles-delay-time").css("display", "inline-block");
+      $("#subtitles-delay-button").css("display", "inline-block");
     }
     var encoding = $('option:selected', this).attr('encoding');
     console.log("ENCODING FOUND HERE: " + encoding);
@@ -240,6 +247,26 @@ var registerEvents = function() {
     $(document.body).append("<div id='subtitles-modal-con'><div>");
     $("#subtitles-modal-con").load(chrome.extension.getURL("subtitles-modal.html"));
   });
+
+
+  $("#subtitles-delay-button").on('click', function() {
+    console.log("Subtitle delay button clicked")
+
+    const subSync = $("#subtitles-delay-time").val()
+    subtitlesSync = subSync/1000
+    subBubblesVideo.subsSync(subtitlesSync);
+
+    console.log("Setting subtitlesSync to ", subtitlesSync)
+    $('#subtitles-delay-button').prop("disabled", true)
+  });
+
+  $("#subtitles-delay-time").on('keyup', function() {
+    const subSync = $("#subtitles-delay-time").val()
+    if (Math.round(subtitlesSync*1000) != subSync) {
+      $('#subtitles-delay-button').prop("disabled", false)
+    }
+  })
+
 };
 
 function registerFileUploader() {

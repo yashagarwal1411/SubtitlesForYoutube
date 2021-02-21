@@ -93,8 +93,11 @@ function initExtension() {
         $(".subtitles").css("font-size", subtitlesSize + "px");
         $("#subtitles-auto-load").prop('checked', autoLoad);
         $("#sub-language").val(subLanguage);
+
+        $("#subtitles-delay-time").val(Math.round(subtitlesSync*1000))
       });
     }
+
   }
 }
 

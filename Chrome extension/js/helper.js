@@ -86,14 +86,18 @@ function registerKeyboardListeners() {
     }
     if (e.keyCode == 'g'.charCodeAt() || e.keyCode == 'G'.charCodeAt()) {
       subtitlesSync -= 0.050; //precede by 50ms
+      $("#subtitles-delay-time").val(Math.round(subtitlesSync*1000))
       subBubblesVideo.subsSync(subtitlesSync);
+      $('#subtitles-delay-button').prop("disabled", true)
       console.log("Delaying subs by -0.050ms");
       $("#sub-info").html("Subtitle delay: " + Math.round(subtitlesSync * 1000) + "ms").fadeIn();
       fadeOutSubtitlesInfo();
     }
     if (e.keyCode == 'h'.charCodeAt() || e.keyCode == 'H'.charCodeAt()) {
       subtitlesSync += 0.050; //delay by 50ms
+      $("#subtitles-delay-time").val(Math.round(subtitlesSync*1000))
       subBubblesVideo.subsSync(subtitlesSync);
+      $('#subtitles-delay-button').prop("disabled", true)
       console.log("Delaying subs by +0.050ms");
       $("#sub-info").html("Subtitle delay: " + Math.round(subtitlesSync * 1000) + "ms").fadeIn();
       fadeOutSubtitlesInfo();

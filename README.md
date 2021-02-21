@@ -3,9 +3,9 @@ SubtitlesForYoutube
 
 This extension lets you add subtitles to any video you are watching on YouTube. Just drag and drop .SRT file or zipped .SRT file for your movie on to the upload-box and the subtitles will start showing up.
 
-The extension also supports searching and using subtitles directly from OpenSubtitles.org and Amara.org. Now you can search in ALL LANGUAGES. Note there are only 5-10% videos on YouTube which have corresponding subtitle in OpenSubtitles.org and Amara.org so you might not be able to search and find subtitles for all videos. 
+The extension also supports searching and using subtitles directly from OpenSubtitles.org and Amara.org right from the YouTube video page. Now you can search in ALL LANGUAGES. Note there are only 5-10% videos on YouTube which have corresponding subtitle in OpenSubtitles.org and Amara.org so you might not be able to search and find subtitles for all videos. 
 
-One example of video with subs - https://www.youtube.com/watch?v=5qF_qbaWt3Q [Music video - Waiting For The End (Official Video) - Linkin Park]
+One example of video with searchable subs - https://www.youtube.com/watch?v=5qF_qbaWt3Q [Music video - Waiting For The End (Official Video) - Linkin Park]
 
 Note: If you already had opened a YouTube page before installing the extension you will not see extension load on that page. Just refresh the page once after installation is complete.
 
@@ -29,6 +29,9 @@ Developers: Yash Agarwal (ysh.agrwl@gmail.com), Nitin R Gupta (nitinramachandrag
 ------------
 Changelog
 ------------
+
+v 8.2.21
++ Adding support for Delaying subtitles from UI
 
 v 7.6.24
 + Minor enhancements
