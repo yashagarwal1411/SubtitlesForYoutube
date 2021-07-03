@@ -65,7 +65,7 @@ function initExtension() {
     if ($("#subtitle-button").length) {
       // console.log("Found existing #subtitle-button");
     } else {
-      $('*[id=info]').find('#top-level-buttons').append('<div id="subtitle-button" class="subtitleButton" type="button" onclick=";return false;" data-button-toggle="true"><span class="subtitleButtonImg"><img src="'+ chrome.extension.getURL("images/subtitles_icon.svg")+'" width="18px"></span><span class="subtitleButtonText">Subtitles</span></div>');
+      $('*[id=info]').find('#top-level-buttons-computed').append('<div id="subtitle-button" class="subtitleButton" type="button" onclick=";return false;" data-button-toggle="true"><span class="subtitleButtonImg"><img src="'+ chrome.extension.getURL("images/subtitles_icon.svg")+'" width="18px"></span><span class="subtitleButtonText">Subtitles</span></div>');
 
       // On click subtitle icon
       $("#subtitle-button").click(function() {
@@ -129,10 +129,10 @@ setInterval(function() {
   // console.log($('div #content'))
   // console.log($('div #content').find('ytd-watch-flexy'))
   // console.log($('div #content').find('ytd-watch-flexy').first().attr("video-id"))
-  var videoId = $('ytd-watch-flexy.style-scope.ytd-page-manager.hide-skeleton').attr("video-id");
+  var videoId = $('#page-manager > ytd-watch-flexy').attr("video-id");
   var newUrl = "https://www.youtube.com/watch?v=" + videoId
   console.log("Found tag: " + newTag)
-  console.log("Found newUrl: ", newUrl)
+  console.log("Found newUrl: " + newUrl)
   if (newTag && newUrl && $("#subtitle-button").length && $("#action-panel-subtitle").length) {
     if (newUrl != originalUrl) {
       console.log("Playing a new video with url: " + newUrl + " and tag: " + newTag);
