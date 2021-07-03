@@ -17,6 +17,7 @@
   position: absolute;
 }
 .subtitleButtonText {
+  color: var(--yt-spec-icon-inactive);
   font-size: 1.3rem;
   font-weight: 500;
   letter-spacing: .007px;
