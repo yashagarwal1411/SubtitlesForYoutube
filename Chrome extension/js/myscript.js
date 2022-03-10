@@ -34,6 +34,7 @@ var tag = "";
 var originalTag = "";
 var originalUrl = "";
 var firstLoad = true;
+let videoSubsMarginBottom = 0
 
 initDataFromLocalStorage();
 /* Function used to initliaze extension */

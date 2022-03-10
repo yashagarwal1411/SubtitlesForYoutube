@@ -63,6 +63,7 @@ function initDataFromLocalStorage() {
 }
 
 function registerKeyboardListeners() {
+
   window.addEventListener('keydown', function(e) {
 
     if(document.getElementById('subtitles-modal-con')) {
@@ -128,6 +129,20 @@ function registerKeyboardListeners() {
       $("#sub-info").html("Sub size: " + subtitlesSize).fadeIn();
       fadeOutSubtitlesInfo();
     }
+
+    if (e.keyCode == 'o'.charCodeAt() || e.keyCode == 'O'.charCodeAt()) {
+      console.log("Current margin bottom is :", videoSubsMarginBottom)
+      videoSubsMarginBottom += 5
+      $('#sub-video_subs').css("margin-bottom", videoSubsMarginBottom + "px")
+    }
+
+    if (e.keyCode == 'p'.charCodeAt() || e.keyCode == 'P'.charCodeAt()) {
+      console.log("Current margin bottom is :", videoSubsMarginBottom)
+      videoSubsMarginBottom -= 5
+      $('#sub-video_subs').css("margin-bottom", videoSubsMarginBottom + "px")
+    }
+
+
   }, false);
 }
 
