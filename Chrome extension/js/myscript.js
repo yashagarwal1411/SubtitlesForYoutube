@@ -81,7 +81,12 @@ function initExtension() {
     if ($("#new-subtitles-con").length) {
       // console.log("Found existing #new-subtitles-con");
     } else {
-      $('#primary-inner').find('> #meta').prepend("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");
+      if ($('#primary-inner').find('#meta') && $('#primary-inner').find('#meta').length > 0) {
+        $('#primary-inner').find('#meta').prepend("<div id='new-subtitles-con' style='display:none; position: relative;' class='style-scope ytd-watch'><div>");    
+      } else {
+        console.error("Could not find $('#primary-inner').find('#meta')")
+        return
+      }
     }
 
     if ($("#action-panel-subtitle").length) {
