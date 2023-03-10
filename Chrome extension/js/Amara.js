@@ -10,7 +10,7 @@ function AmaraFactory() {
 
   var apiUsername = "Yash";
   var apiKey = "f86e2484b72dbd22714bd04a87dd4e34e125cba1";
-  var baseUrl = "https://amara.org/api2/partners";
+  var baseUrl = "https://amara.org/api";
   var domainUrl = "https://amara.org";
 
   var self = {};
