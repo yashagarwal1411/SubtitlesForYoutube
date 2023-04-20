@@ -1,7 +1,7 @@
 {
   "name": "Subtitles For YouTube",
   "manifest_version": 2,
-  "version": "10.3.10",
+  "version": "10.4.20",
   "icons": {
     "128": "images/icon.png"
   },
@@ -25,5 +25,6 @@
     "scripts": ["js/libs/jquery-1.11.1.js", "js/libs/jquery.xmlrpc.js",
      "js/ga.js", "js/OpenSubtitles.js", "js/Amara.js", "js/background.js"],
     "persistent": false
-  }
+  },
+  "incognito": "split"
 }

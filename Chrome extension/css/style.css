@@ -4,6 +4,8 @@
   line-height: 38px;
   cursor: pointer;
   opacity: 0.4;
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 18px;
 }
 .subtitleButton.clicked {
   opacity: 1;
@@ -13,7 +15,7 @@
 }
 .subtitleButtonImg {
   margin-right: 9px;
-  top: 4px;
+  margin-top: 4px;
   position: absolute;
 }
 .subtitleButtonText {
