@@ -1,30 +1,33 @@
 {
   "name": "Subtitles For YouTube",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "10.4.20",
+  "description": "Use this extension to add subtitles available to user to any YouTube video",
   "icons": {
     "128": "images/icon.png"
   },
-  "description": "Use this extension to add subtitles available to user to any YouTube video",
   "permissions": [
-    "*://api.opensubtitles.org/*",
-    "https://www.amara.org/*",
-    "https://amara.org/*",
     "storage"
   ],
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "web_accessible_resources": ["open-subtitles.html", "subtitles-tab.html", "onboarding.html", "subtitles-modal.html", "images/*.*"],
+  "host_permissions": [
+    "*://api.opensubtitles.org/*",
+    "https://www.amara.org/*",
+    "https://amara.org/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "web_accessible_resources": [{
+    "resources": ["open-subtitles.html", "subtitles-tab.html", "onboarding.html", "subtitles-modal.html", "images/*.*"],
+    "matches": ["<all_urls>"]
+  }],
   "content_scripts": [{
     "matches": ["*://www.youtube.com/*"],
-    "js": ["js/libs/jquery-1.11.1.js", "js/libs/jquery-ui-1.10.3.custom.min.js",
-    "js/libs/jquery.fileupload.js", "js/libs/jquery.iframe-transport.js", "js/libs/jszip.min.js",
-    "js/libs/gunzip.min.js","js/bubbles-modified.js", "js/OpenSubtitles.js", "js/ExternalSubtitles.js", "js/helper.js", "js/myscript.js"],
+    "js": ["js/libs/jquery-1.11.1.js", "js/libs/jquery-ui-1.10.3.custom.min.js", "js/libs/jquery.fileupload.js", "js/libs/jquery.iframe-transport.js", "js/libs/jszip.min.js", "js/libs/gunzip.min.js", "js/bubbles-modified.js", "js/OpenSubtitles.js", "js/ExternalSubtitles.js", "js/helper.js", "js/myscript.js"],
     "css": ["css/style.css"]
   }],
   "background": {
-    "scripts": ["js/libs/jquery-1.11.1.js", "js/libs/jquery.xmlrpc.js",
-     "js/ga.js", "js/OpenSubtitles.js", "js/Amara.js", "js/background.js"],
-    "persistent": false
+    "service_worker": "js/background.js"
   },
   "incognito": "split"
 }
